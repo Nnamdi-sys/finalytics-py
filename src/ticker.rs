@@ -428,6 +428,10 @@ impl PyTicker {
     /// * `risk_free_rate` - `float` - The risk free rate to use in the calculations
     /// * `display_format` - `str` - The format to display the chart in (png, html)
     ///
+    /// # Returns
+    ///
+    /// `str` - The path to the chart file
+    ///
     /// # Example
     ///
     /// ```
@@ -437,7 +441,7 @@ impl PyTicker {
     /// ticker.display_performance_chart("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02, "html")
     /// ```
     pub fn display_performance_chart(&self, start: String, end: String, interval: String, benchmark: String,
-                                     confidence_level: f64, risk_free_rate: f64, display_format: String)  {
+                                     confidence_level: f64, risk_free_rate: f64, display_format: String) -> String  {
         task::block_in_place(move || {
             let interval = Interval::from_str(&interval);
             let chart = TickerCharts::new(&self.symbol,  &start,
@@ -446,19 +450,22 @@ impl PyTicker {
             let performance_chart = tokio::runtime::Runtime::new().unwrap().block_on(
                 chart.performance_chart()).unwrap();
 
+            let mut chart_paths = String::new();
+
             match display_format.as_str() {
                 "png" => {
                     performance_chart.to_png("performance_chart.png",  1500, 1200, 1.0);
-                    println!("Chart Saved to performance_chart.png");
+                    chart_paths.push_str("performance_chart.png");
                 },
                 "html" => {
                     performance_chart.write_html("performance_chart.html");
-                    println!("Chart Saved to performance_chart.html");
+                    chart_paths.push_str("performance_chart.html");
                 }
                 _ => {
                     println!("Invalid output format. Please choose either 'png' or 'html'");
                 }
             }
+            chart_paths
         })
     }
 
@@ -471,6 +478,10 @@ impl PyTicker {
     /// * `interval` - `str` - The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo)
     /// * `display_format` - `str` - The format to display the chart in (png, html)
     ///
+    /// # Returns
+    ///
+    /// `str` - The path to the chart file
+    ///
     /// # Example
     ///
     /// ```
@@ -479,7 +490,7 @@ impl PyTicker {
     /// ticker = finalytics.Ticker("AAPL")
     /// ticker.display_candlestick_chart("2020-01-01", "2020-12-31", "1d", "html")
     /// ```
-    pub fn display_candlestick_chart(&self, start: String, end: String, interval: String, display_format: String)  {
+    pub fn display_candlestick_chart(&self, start: String, end: String, interval: String, display_format: String) -> String  {
         task::block_in_place(move || {
             let interval = Interval::from_str(&interval);
             let chart = TickerCharts::new(&self.symbol,  &start,
@@ -488,19 +499,22 @@ impl PyTicker {
             let candlestick_chart = tokio::runtime::Runtime::new().unwrap().block_on(
                 chart.candlestick_chart()).unwrap();
 
+            let mut chart_paths = String::new();
+
             match display_format.as_str() {
                 "png" => {
                     candlestick_chart.to_png("candlestick_chart.png",  1500, 1200, 1.0);
-                    println!("Chart Saved to candlestick_chart.png")
+                    chart_paths.push_str("candlestick_chart.png");
                 },
                 "html" => {
                     candlestick_chart.write_html("candlestick_chart.html");
-                    println!("Chart Saved to candlestick_chart.html");
+                    chart_paths.push_str("candlestick_chart.html");
                 },
                 _ => {
                     println!("Invalid output format. Please choose either 'png' or 'html'");
                 }
             }
+            chart_paths
         })
     }
 
@@ -511,6 +525,10 @@ impl PyTicker {
     /// * `risk_free_rate` - `float` - The risk free rate to use in the calculations
     /// * `display_format` - `str` - The format to display the chart in (png, html)
     ///
+    /// # Returns
+    ///
+    /// `str` - The path to the chart file
+    ///
     /// # Example
     ///
     /// ```
@@ -519,7 +537,7 @@ impl PyTicker {
     /// ticker = finalytics.Ticker("AAPL")
     /// ticker.display_options_chart(0.02, "html")
     /// ```
-    pub fn display_options_chart(&self, risk_free_rate: f64, display_format: String)  {
+    pub fn display_options_chart(&self, risk_free_rate: f64, display_format: String) -> String {
         task::block_in_place(move || {
             let interval = Interval::from_str("1d");
             let chart = TickerCharts::new(&self.symbol,  "",
@@ -528,21 +546,24 @@ impl PyTicker {
             let options_chart = tokio::runtime::Runtime::new().unwrap().block_on(
                 chart.options_volatility_charts()).unwrap();
 
+            let mut chart_paths = String::new();
+
             for (i, plot) in options_chart.iter().enumerate() {
                 match display_format.as_str() {
                     "png" => {
                         plot.to_png(format!("options_chart_{}.png", i).as_str(),  1500, 1200, 1.0);
-                        println!("Chart Saved to options_chart_{}.png", i);
+                        chart_paths.push_str(format!("options_chart_{}.png", i).as_str());
                     },
                     "html" => {
                         plot.write_html(format!("options_chart_{}.html", i).as_str());
-                        println!("Chart Saved to options_chart_{}.html", i);
+                        chart_paths.push_str(format!("options_chart_{}.html", i).as_str());
                     },
                     _ => {
                         println!("Invalid output format. Please choose either 'png' or 'html'");
                     }
                 }
             }
+            chart_paths
         })
     }
 }

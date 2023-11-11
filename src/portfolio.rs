@@ -123,6 +123,10 @@ impl PyPortfolio {
     ///
     /// * `display_format` - `str` - The format to display the charts in (html, png)
     ///
+    /// # Returns
+    ///
+    /// `str` - string of the paths to the charts
+    ///
     /// # Example
     ///
     /// ```
@@ -131,27 +135,29 @@ impl PyPortfolio {
     /// portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
     /// portfolio.display_portfolio_charts("html")
     /// ```
-    pub fn display_portfolio_charts(&self, display_format: String) {
+    pub fn display_portfolio_charts(&self, display_format: String) -> String {
         task::block_in_place(move || {
+            let mut chart_paths = String::new();
             match display_format.as_str() {
                 "html" => {
                     self.portfolio.optimization_chart().unwrap().write_html("optimization.html");
-                    println!("Optimization chart written to optimization.html");
+                    chart_paths.push_str("Optimization chart written to optimization.html\n");
                     self.portfolio.performance_chart().unwrap().write_html("performance.html");
-                    println!("Performance chart written to performance.html");
+                    chart_paths.push_str("Performance chart written to performance.html\n");
                     self.portfolio.asset_returns_chart().unwrap().write_html("asset_returns.html");
-                    println!("Asset returns chart written to asset_returns.html");
+                    chart_paths.push_str("Asset returns chart written to asset_returns.html\n");
                 },
                 "png" => {
                     self.portfolio.optimization_chart().unwrap().to_png("optimization.png",  1000, 1000, 1.0);
-                    println!("Optimization chart written to optimization.png");
+                    chart_paths.push_str("Optimization chart written to optimization.png\n");
                     self.portfolio.performance_chart().unwrap().to_png("performance.png",  1000, 1000, 1.0);
-                    println!("Performance chart written to performance.png");
+                    chart_paths.push_str("Performance chart written to performance.png\n");
                     self.portfolio.asset_returns_chart().unwrap().to_png("asset_returns.png",  1000, 1000, 1.0);
-                    println!("Asset returns chart written to asset_returns.png");
+                    chart_paths.push_str("Asset returns chart written to asset_returns.png\n");
                 },
                 _ => panic!("display_format must be one of: html or png")
             }
+            chart_paths
         })
     }
 }
