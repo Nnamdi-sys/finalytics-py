@@ -121,14 +121,14 @@ impl PyPortfolio {
     ///
     /// # Arguments
     ///
-    /// * `display_format` - `str` - The format to display the charts in (html, png, jupyter_notebook, jupyter_lab)
+    /// * `display_format` - `str` - The format to display the charts in (html, png)
     ///
     /// # Example
     ///
     /// ```
     /// import finalytics
     ///
-    /// portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "SPY", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
+    /// portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
     /// portfolio.display_portfolio_charts("html")
     /// ```
     pub fn display_portfolio_charts(&self, display_format: String) {
@@ -136,25 +136,21 @@ impl PyPortfolio {
             match display_format.as_str() {
                 "html" => {
                     self.portfolio.optimization_chart().unwrap().write_html("optimization.html");
+                    println!("Optimization chart written to optimization.html");
                     self.portfolio.performance_chart().unwrap().write_html("performance.html");
+                    println!("Performance chart written to performance.html");
                     self.portfolio.asset_returns_chart().unwrap().write_html("asset_returns.html");
+                    println!("Asset returns chart written to asset_returns.html");
                 },
                 "png" => {
                     self.portfolio.optimization_chart().unwrap().to_png("optimization.png",  1000, 1000, 1.0);
+                    println!("Optimization chart written to optimization.png");
                     self.portfolio.performance_chart().unwrap().to_png("performance.png",  1000, 1000, 1.0);
+                    println!("Performance chart written to performance.png");
                     self.portfolio.asset_returns_chart().unwrap().to_png("asset_returns.png",  1000, 1000, 1.0);
+                    println!("Asset returns chart written to asset_returns.png");
                 },
-                "jupyter_notebook" => {
-                    self.portfolio.optimization_chart().unwrap().notebook_display();
-                    self.portfolio.performance_chart().unwrap().notebook_display();
-                    self.portfolio.asset_returns_chart().unwrap().notebook_display();
-                },
-                "jupyter_lab" => {
-                    self.portfolio.optimization_chart().unwrap().lab_display();
-                    self.portfolio.performance_chart().unwrap().lab_display();
-                    self.portfolio.asset_returns_chart().unwrap().lab_display();
-                },
-                _ => panic!("display_format must be one of: html, png, jupyter_notebook, jupyter_lab")
+                _ => panic!("display_format must be one of: html or png")
             }
         })
     }

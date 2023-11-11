@@ -426,7 +426,7 @@ impl PyTicker {
     /// * `benchmark` - `str` - The ticker symbol of the benchmark to compare against
     /// * `confidence_level` - `float` - The confidence level for the VaR and ES calculations
     /// * `risk_free_rate` - `float` - The risk free rate to use in the calculations
-    /// * `display_format` - `str` - The format to display the chart in (png, html, jupyter_notebook, jupyter_lab)
+    /// * `display_format` - `str` - The format to display the chart in (png, html)
     ///
     /// # Example
     ///
@@ -449,18 +449,14 @@ impl PyTicker {
             match display_format.as_str() {
                 "png" => {
                     performance_chart.to_png("performance_chart.png",  1500, 1200, 1.0);
+                    println!("Chart Saved to performance_chart.png");
                 },
                 "html" => {
-                    performance_chart.write_html("performance_chart.html")
-                },
-                "jupyter_notebook" => {
-                    performance_chart.notebook_display();
-                },
-                "jupyter_lab" => {
-                    performance_chart.lab_display();
-                },
+                    performance_chart.write_html("performance_chart.html");
+                    println!("Chart Saved to performance_chart.html");
+                }
                 _ => {
-                    println!("Invalid output format. Please choose either 'png' , 'html' or 'jupyter_notebook', 'jupyter_lab'.");
+                    println!("Invalid output format. Please choose either 'png' or 'html'");
                 }
             }
         })
@@ -473,7 +469,7 @@ impl PyTicker {
     /// * `start` - `str` - The start date of the time period in the format YYYY-MM-DD
     /// * `end` - `str` - The end date of the time period in the format YYYY-MM-DD
     /// * `interval` - `str` - The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo)
-    /// * `display_format` - `str` - The format to display the chart in (png, html, jupyter_notebook, jupyter_lab)
+    /// * `display_format` - `str` - The format to display the chart in (png, html)
     ///
     /// # Example
     ///
@@ -495,18 +491,14 @@ impl PyTicker {
             match display_format.as_str() {
                 "png" => {
                     candlestick_chart.to_png("candlestick_chart.png",  1500, 1200, 1.0);
+                    println!("Chart Saved to candlestick_chart.png")
                 },
                 "html" => {
-                    candlestick_chart.write_html("candlestick_chart.html")
-                },
-                "jupyter_notebook" => {
-                    candlestick_chart.notebook_display();
-                },
-                "jupyter_lab" => {
-                    candlestick_chart.lab_display();
+                    candlestick_chart.write_html("candlestick_chart.html");
+                    println!("Chart Saved to candlestick_chart.html");
                 },
                 _ => {
-                    println!("Invalid output format. Please choose either 'png' , 'html', 'jupyter_notebook', 'jupyter_lab'.");
+                    println!("Invalid output format. Please choose either 'png' or 'html'");
                 }
             }
         })
@@ -517,7 +509,7 @@ impl PyTicker {
     /// # Arguments
     ///
     /// * `risk_free_rate` - `float` - The risk free rate to use in the calculations
-    /// * `display_format` - `str` - The format to display the chart in (png, html, jupyter_notebook, jupyter_lab)
+    /// * `display_format` - `str` - The format to display the chart in (png, html)
     ///
     /// # Example
     ///
@@ -540,18 +532,14 @@ impl PyTicker {
                 match display_format.as_str() {
                     "png" => {
                         plot.to_png(format!("options_chart_{}.png", i).as_str(),  1500, 1200, 1.0);
+                        println!("Chart Saved to options_chart_{}.png", i);
                     },
                     "html" => {
-                        plot.write_html(format!("options_chart_{}.html", i).as_str())
-                    },
-                    "jupyter_notebook" => {
-                        plot.notebook_display();
-                    },
-                    "jupyter_lab" => {
-                        plot.lab_display();
+                        plot.write_html(format!("options_chart_{}.html", i).as_str());
+                        println!("Chart Saved to options_chart_{}.html", i);
                     },
                     _ => {
-                        println!("Invalid output format. Please choose either 'png' , 'html', 'jupyter_notebook' or jupyter_lab.");
+                        println!("Invalid output format. Please choose either 'png' or 'html'");
                     }
                 }
             }

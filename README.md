@@ -8,9 +8,15 @@ This is a python binding for [Finalytics Rust Library](https://github.com/Nnamdi
 
 ## Installation
 
+#### Windows and MacOS
+
 ```bash
 pip install finalytics
 ```
+
+#### Linux
+
+Still in development
 
 ## Documentation
 
@@ -34,17 +40,17 @@ from finalytics import Ticker
 ticker = Ticker("AAPL")
 print(ticker.get_current_price())
 print(ticker.get_summary_stats())
-print(ticker.get_price_history("2020-01-01", "2020-12-31", "1d"))
+print(ticker.get_price_history("2023-01-01", "2023-10-31", "1d"))
 print(ticker.get_options_chain())
-print(ticker.get_news("2020-01-01", "2020-12-31", False))
+print(ticker.get_news("2023-11-01", "2023-11-10", False))
 print(ticker.get_income_statement())
 print(ticker.get_balance_sheet())
 print(ticker.get_cashflow_statement())
 print(ticker.get_financial_ratios())
-print(ticker.compute_performance_stats("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02))
-ticker.display_performance_chart("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02, "html")
-ticker.display_candlestick_chart("2020-01-01", "2020-12-31", "1d", "png")
-ticker.display_options_chart(0.02, "jupyter_notebook")
+print(ticker.compute_performance_stats("2023-01-01", "2023-10-31", "1d", "^GSPC", 0.95, 0.02))
+ticker.display_performance_chart("2023-01-01", "2023-10-31", "1d", "^GSPC", 0.95, 0.02, "html")
+ticker.display_candlestick_chart("2023-01-01", "2023-10-31", "1d", "html")
+ticker.display_options_chart(0.02, "png")
 ```
 
 ### Portfolio Optimization
