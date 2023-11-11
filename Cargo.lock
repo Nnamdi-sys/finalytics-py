@@ -723,7 +723,7 @@ checksum = "25cbce373ec4653f1a01a31e8a5e5ec0c622dc27ff9c4e6606eefef5cbbed4a5"
 name = "finalytics"
 version = "0.1.1"
 dependencies = [
- "finalytics 0.2.5",
+ "finalytics 0.2.6",
  "polars",
  "pyo3",
  "tokio",
@@ -731,9 +731,9 @@ dependencies = [
 
 [[package]]
 name = "finalytics"
-version = "0.2.5"
+version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "51d985e69396cc3782345c34c3af2a302298c65b1f5c8f2a49ca09b8dc36fc57"
+checksum = "6b57a2c45a3147f7275b7f7ea1e0be1051c3e139df3b3230a544d8ab44c4b1bf"
 dependencies = [
  "chrono",
  "html-escape",
@@ -1306,6 +1306,7 @@ version = "0.26.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "afc22eff61b133b115c6e8c74e818c628d6d5e7a502afea6f64dee076dd94326"
 dependencies = [
+ "cc",
  "pkg-config",
  "vcpkg",
 ]
