@@ -30,7 +30,7 @@ jobs:
         with:
           python-version: '3.10'
       - name: Install Zig
-        run: snap install zig --classic --beta
+        run: sudo snap install zig --classic --beta
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
