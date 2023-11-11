@@ -39,17 +39,17 @@ jobs:
             clang \
             llvm \
             perl
-      - name: Install Homebrew
+      - name: Install Linuxbrew
         run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      - name: Add Homebrew to PATH
+          sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+          test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+          test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+          test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+          echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+      - name: Install OpenSSL using Linuxbrew
         run: |
-          echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> $HOME/.profile
-          eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-      - name: Install OpenSSL crate
-        run: brew install openssl
-      - name: Set OPENSSL_DIR environment variable
-        run: export OPENSSL_DIR=$(brew --prefix openssl)
+          brew install openssl
+          export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/openssl/lib/pkgconfig:$PKG_CONFIG_PATH"
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
