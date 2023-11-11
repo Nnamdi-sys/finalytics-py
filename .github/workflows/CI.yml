@@ -25,17 +25,19 @@ jobs:
       matrix:
         target: [x86_64, x86, aarch64, armv7, s390x, ppc64le]
     steps:
-      - name: Install Dependencies
-        run: sudo apt-get install -y pkg-config libssl-dev libsqlite3-dev
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+      - name: Install Zig
+        run: |
+            sudo apt-get update
+            sudo apt-get install zig
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
-          args: --release --out dist --find-interpreter
+          args: --release --out dist --find-interpreter --zig
           sccache: 'true'
           manylinux: auto
       - name: Upload wheels
@@ -50,8 +52,6 @@ jobs:
       matrix:
         target: [x64, x86]
     steps:
-      - name: Install Dependencies
-        run: choco install pkgconfiglite openssl sqlite
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
