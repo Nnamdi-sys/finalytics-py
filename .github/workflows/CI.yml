@@ -40,7 +40,7 @@ jobs:
             llvm \
             perl
       - name: Install OpenSSL crate
-        run: cargo install openssl
+        run: cargo add openssl
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
