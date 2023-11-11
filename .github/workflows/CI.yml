@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target: [x86_64, x86, aarch64, armv7, s390x, ppc64le]
+        target: [x86_64, x86]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -48,19 +48,33 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        target: [x64, x86]
+        target: [ x64, x86 ]
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
           python-version: '3.10'
           architecture: ${{ matrix.target }}
+      - name: Find sqlite3.lib
+        id: find_sqlite_lib
+        run: |
+          if exist "%ProgramFiles(x86)%\SQLite" (
+            echo "::set-output name=sqlite_lib::%ProgramFiles(x86)%\SQLite\sqlite3.lib"
+          ) else if exist "%ProgramFiles%\SQLite" (
+            echo "::set-output name=sqlite_lib::%ProgramFiles%\SQLite\sqlite3.lib"
+          ) else (
+            echo "SQLite library not found."
+            exit 1
+          )
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
           args: --release --out dist --find-interpreter
           sccache: 'true'
+          env:
+            LIB: ${{ steps.find_sqlite_lib.outputs.sqlite_lib }}
       - name: Upload wheels
         uses: actions/upload-artifact@v3
         with:
