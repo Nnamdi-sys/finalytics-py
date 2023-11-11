@@ -31,8 +31,21 @@ jobs:
           python-version: '3.10'
       - name: Install Zig
         run: |
-            sudo apt-get update
-            sudo apt-get install zig
+            case "${{ matrix.target }}" in
+              x86_64) ZIG_ARCH="x86_64" ;;
+              x86) ZIG_ARCH="x86" ;;
+              aarch64) ZIG_ARCH="aarch64" ;;
+              armv7a) ZIG_ARCH="armv7a" ;;
+              riscv64) ZIG_ARCH="riscv64" ;;
+              powerpc64le) ZIG_ARCH="powerpc64le" ;;
+              powerpc) ZIG_ARCH="powerpc" ;;
+            esac
+            
+            ZIG_VERSION="0.12.0"
+            wget "https://ziglang.org/download/${ZIG_VERSION}/zig-linux-${ZIG_ARCH}-${ZIG_VERSION}-dev.1571+03adafd80.tar.xz"
+            tar -xf "zig-linux-${ZIG_ARCH}-${ZIG_VERSION}-dev.1571+03adafd80.tar.xz"
+            sudo mv "zig-linux-${ZIG_ARCH}-${ZIG_VERSION}-dev.1571+03adafd80/zig" /usr/local/bin/
+            rm -rf "zig-linux-${ZIG_ARCH}-${ZIG_VERSION}-dev.1571+03adafd80"
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -57,6 +70,10 @@ jobs:
         with:
           python-version: '3.10'
           architecture: ${{ matrix.target }}
+      - name: Install SQLite on Windows
+        run: |
+            choco install sqlite
+            [Environment]::SetEnvironmentVariable("LIB", "$env:LIB;C:\Program Files\SQLite\lib", [System.EnvironmentVariableTarget]::Process)
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
