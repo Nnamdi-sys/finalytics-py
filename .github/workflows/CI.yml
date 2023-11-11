@@ -18,26 +18,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target:
-          - { architecture: x86_64, image: 'messense/rust-musl-cross:x86_64-musl' }
-          - { architecture: x86, image: 'messense/rust-musl-cross:i686-musl' }
-          - { architecture: aarch64, image: 'messense/rust-musl-cross:aarch64-musl' }
-          - { architecture: armv7, image: 'messense/rust-musl-cross:armv7-musleabihf' }
-          - { architecture: s390x, image: 'messense/rust-musl-cross:s390x-musl' }
-          - { architecture: ppc64le, image: 'messense/rust-musl-cross:powerpc64le-musl' }
-    container:
-      image: ${{ matrix.target.image }}
-      env:
-        CFLAGS_armv7_unknown_linux_musleabihf: '-mfpu=vfpv3-d16'
+        target: [x86_64, x86, aarch64, armv7, s390x, ppc64le]
     steps:
       - uses: actions/checkout@v3
-      - name: Build wheels
-        uses: PyO3/maturin-action@main
+      - name: Install Linux Build Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential pkg-config libssl-dev
+      - uses: actions/setup-python@v4
         with:
-          target: x86_64-unknown-linux-gnu  # Use any target, it will be overridden by maturin
+          python-version: '3.10'
+      - name: Build wheels
+        uses: PyO3/maturin-action@v1
+        with:
+          target: ${{ matrix.target }}
+          args: --release --out dist --find-interpreter
+          sccache: 'true'
           manylinux: auto
-          container: on
-          args: --release --out dist
       - name: Upload wheels
         uses: actions/upload-artifact@v3
         with:
@@ -48,9 +45,12 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        target: [x86_64, x86]
+        target: [x64, x86]
     steps:
       - uses: actions/checkout@v3
+      - name: Install Windows Build Dependencies
+        run: |
+          choco install -y visualstudio2019buildtools visualstudio2019-workload-vctools
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
@@ -74,6 +74,9 @@ jobs:
         target: [x86_64, aarch64]
     steps:
       - uses: actions/checkout@v3
+      - name: Install macOS Build Dependencies
+        run: |
+          brew install openssl
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
