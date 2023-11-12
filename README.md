@@ -1,4 +1,4 @@
-## Finalytics
+![image info](./examples/logo-color.png)
 
 [![pypi](https://img.shields.io/pypi/v/finalytics)](https://pypi.org/project/finalytics/)
 ![License](https://img.shields.io/crates/l/finalytics)
