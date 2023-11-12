@@ -135,7 +135,7 @@ impl PyPortfolio {
     /// portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
     /// portfolio.display_portfolio_charts("html")
     /// ```
-    pub fn display_portfolio_charts(&self, display_format: String) -> String {
+    pub fn display_portfolio_charts(&self, display_format: String) -> PyObject {
         task::block_in_place(move || {
             let mut chart_paths = String::new();
             match display_format.as_str() {
@@ -157,7 +157,9 @@ impl PyPortfolio {
                 },
                 _ => panic!("display_format must be one of: html or png")
             }
-            chart_paths
+            Python::with_gil(|py| {
+                chart_paths.to_object(py)
+            })
         })
     }
 }

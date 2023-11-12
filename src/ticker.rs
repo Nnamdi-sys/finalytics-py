@@ -441,7 +441,7 @@ impl PyTicker {
     /// ticker.display_performance_chart("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02, "html")
     /// ```
     pub fn display_performance_chart(&self, start: String, end: String, interval: String, benchmark: String,
-                                     confidence_level: f64, risk_free_rate: f64, display_format: String) -> String  {
+                                     confidence_level: f64, risk_free_rate: f64, display_format: String) -> PyObject  {
         task::block_in_place(move || {
             let interval = Interval::from_str(&interval);
             let chart = TickerCharts::new(&self.symbol,  &start,
@@ -465,7 +465,9 @@ impl PyTicker {
                     println!("Invalid output format. Please choose either 'png' or 'html'");
                 }
             }
-            chart_paths
+            Python::with_gil(|py| {
+                chart_paths.to_object(py)
+            })
         })
     }
 
@@ -490,7 +492,7 @@ impl PyTicker {
     /// ticker = finalytics.Ticker("AAPL")
     /// ticker.display_candlestick_chart("2020-01-01", "2020-12-31", "1d", "html")
     /// ```
-    pub fn display_candlestick_chart(&self, start: String, end: String, interval: String, display_format: String) -> String  {
+    pub fn display_candlestick_chart(&self, start: String, end: String, interval: String, display_format: String) -> PyObject  {
         task::block_in_place(move || {
             let interval = Interval::from_str(&interval);
             let chart = TickerCharts::new(&self.symbol,  &start,
@@ -514,7 +516,9 @@ impl PyTicker {
                     println!("Invalid output format. Please choose either 'png' or 'html'");
                 }
             }
-            chart_paths
+            Python::with_gil(|py| {
+                chart_paths.to_object(py)
+            })
         })
     }
 
@@ -537,7 +541,7 @@ impl PyTicker {
     /// ticker = finalytics.Ticker("AAPL")
     /// ticker.display_options_chart(0.02, "html")
     /// ```
-    pub fn display_options_chart(&self, risk_free_rate: f64, display_format: String) -> String {
+    pub fn display_options_chart(&self, risk_free_rate: f64, display_format: String) -> PyObject {
         task::block_in_place(move || {
             let interval = Interval::from_str("1d");
             let chart = TickerCharts::new(&self.symbol,  "",
@@ -563,7 +567,11 @@ impl PyTicker {
                     }
                 }
             }
-            chart_paths
+
+            Python::with_gil(|py| {
+                chart_paths.to_object(py)
+            })
+
         })
     }
 }
