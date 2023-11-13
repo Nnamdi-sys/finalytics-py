@@ -6,7 +6,7 @@ Symbols Module
 
 This module provides functions related to symbols.
 
-**get_symbols_py(query, asset_class)**
+**get_symbols(query, asset_class)**
     Fetches ticker symbols that closely match the specified query and asset class.
 
     :param query: str - ticker symbol query
