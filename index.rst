@@ -6,7 +6,7 @@ Symbols Module
 
 This module provides functions related to symbols.
 
-**get_symbols(query, asset_class)**
+**get_symbols_py(query, asset_class)**
     Fetches ticker symbols that closely match the specified query and asset class.
 
     :param query: str - ticker symbol query
@@ -15,12 +15,13 @@ This module provides functions related to symbols.
 
     **Example**
 
-    ```python
-    import finalytics
+    ::
 
-    symbols = finalytics.get_symbols_py("Apple", "Equity")
-    print(symbols)
-    ```
+        import finalytics
+
+        symbols = finalytics.get_symbols_py("Apple", "Equity")
+        print(symbols)
+
 
 Ticker Module
 -------------
@@ -42,12 +43,13 @@ This module contains the `Ticker` class.
         - `Ticker`: A Ticker object.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        print(ticker.symbol, ticker.name, ticker.category, ticker.asset_class, ticker.exchange)
-        ```
+                import finalytics
+
+                symbols = finalytics.get_symbols_py("Apple", "Equity")
+                print(symbols)
+
 
 2. **get_current_price() -> float**
     Get the current price of the ticker.
@@ -56,12 +58,13 @@ This module contains the `Ticker` class.
         - `float`: The current price of the ticker.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        current_price = ticker.get_current_price()
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                current_price = ticker.get_current_price()
+
 
 3. **get_summary_stats() -> dict**
     Get summary technical and fundamental statistics for the ticker.
@@ -70,12 +73,13 @@ This module contains the `Ticker` class.
         - `dict`: A dictionary containing the summary statistics.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        summary_stats = ticker.get_summary_stats()
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                summary_stats = ticker.get_summary_stats()
+
 
 4. **get_price_history(start: str, end: str, interval: str) -> DataFrame**
     Get the ohlcv data for the ticker for a given time period.
@@ -89,12 +93,13 @@ This module contains the `Ticker` class.
         - `DataFrame`: A Polars DataFrame containing the ohlcv data.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        ohlcv = ticker.get_price_history("2020-01-01", "2020-12-31", "1d")
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                ohlcv = ticker.get_price_history("2020-01-01", "2020-12-31", "1d")
+
 
 5. **get_options_chain() -> DataFrame**
     Get the options chain for the ticker.
@@ -103,12 +108,13 @@ This module contains the `Ticker` class.
         - `DataFrame`: A Polars DataFrame containing the options chain.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        options_chain = ticker.get_options_chain()
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                options_chain = ticker.get_options_chain()
+
 
 6. **get_news(start: str, end: str, compute_sentiment: bool) -> dict**
     Get the news for the ticker for a given time period.
@@ -122,12 +128,13 @@ This module contains the `Ticker` class.
         - `dict`: A dictionary containing the news articles (and sentiment results if requested).
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        news = ticker.get_news("2020-01-01", "2020-12-31", False)
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                news = ticker.get_news("2020-01-01", "2020-12-31", False)
+
 
 7. **get_income_statement() -> DataFrame**
     Get the Income Statement for the ticker.
@@ -136,12 +143,13 @@ This module contains the `Ticker` class.
         - `DataFrame`: A Polars DataFrame containing the Income Statement.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        income_statement = ticker.get_income_statement()
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                income_statement = ticker.get_income_statement()
+
 
 8. **get_balance_sheet() -> DataFrame**
     Get the Balance Sheet for the ticker.
@@ -150,12 +158,13 @@ This module contains the `Ticker` class.
         - `DataFrame`: A Polars DataFrame containing the Balance Sheet.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        balance_sheet = ticker.get_balance_sheet()
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                balance_sheet = ticker.get_balance_sheet()
+
 
 9. **get_cashflow_statement() -> DataFrame**
     Get the Cashflow Statement for the ticker.
@@ -164,12 +173,13 @@ This module contains the `Ticker` class.
         - `DataFrame`: A Polars DataFrame containing the Cashflow Statement.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        cashflow_statement = ticker.get_cashflow_statement()
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                cashflow_statement = ticker.get_cashflow_statement()
+
 
 10. **get_financial_ratios() -> DataFrame**
     Get the Financial Ratios for the ticker.
@@ -178,12 +188,13 @@ This module contains the `Ticker` class.
         - `DataFrame`: A Polars DataFrame containing the Financial Ratios.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        financial_ratios = ticker.get_financial_ratios()
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                financial_ratios = ticker.get_financial_ratios()
+
 
 11. **compute_performance_stats(start: str, end: str, interval: str, benchmark: str, confidence_level: float, risk_free_rate: float) -> dict**
     Compute the performance statistics for the ticker.
@@ -200,12 +211,13 @@ This module contains the `Ticker` class.
         - `dict`: A dictionary containing the performance statistics.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        performance_stats = ticker.compute_performance_stats("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02)
-        ```
+               import finalytics
+
+               ticker = finalytics.Ticker("AAPL")
+               performance_stats = ticker.compute_performance_stats("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02)
+
 
 12. **display_performance_chart(start: str, end: str, interval: str, benchmark: str, confidence_level: float, risk_free_rate: float, display_format: str)**
     Display the performance chart for the ticker.
@@ -220,12 +232,13 @@ This module contains the `Ticker` class.
         - `display_format` (`str`): The format to display the chart in (png, html).
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        ticker.display_performance_chart("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02, "html")
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                ticker.display_performance_chart("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02, "html")
+
 
 13. **display_candlestick_chart(start: str, end: str, interval: str, display_format: str)**
     Display the candlestick chart for the ticker.
@@ -237,12 +250,13 @@ This module contains the `Ticker` class.
         - `display_format` (`str`): The format to display the chart in (png, html).
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        ticker.display_candlestick_chart("2020-01-01", "2020-12-31", "1d", "html")
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                ticker.display_candlestick_chart("2020-01-01", "2020-12-31", "1d", "html")
+
 
 14. **display_options_chart(risk_free_rate: float, display_format: str)**
     Display the options volatility surface, smile, and term structure charts for the ticker.
@@ -252,12 +266,13 @@ This module contains the `Ticker` class.
         - `display_format` (`str`): The format to display the chart in (png, html).
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        ticker = finalytics.Ticker("AAPL")
-        ticker.display_options_chart(0.02, "html")
-        ```
+                import finalytics
+
+                ticker = finalytics.Ticker("AAPL")
+                ticker.display_options_chart(0.02, "html")
+
 
 
 Portfolio Module
@@ -270,7 +285,7 @@ This module contains the `Portfolio` class.
 
 **Portfolio Class Methods**
 
-1. **new(ticker_symbols: List[str], benchmark_symbol: str, start_date: str, end_date: str, interval: str, confidence_level: float, risk_free_rate: float, max_iterations: int, objective_function: str) -> PyPortfolio**
+1. **new(ticker_symbols: List[str], benchmark_symbol: str, start_date: str, end_date: str, interval: str, confidence_level: float, risk_free_rate: float, max_iterations: int, objective_function: str) -> Portfolio**
     Create a new Portfolio object.
 
     - **Arguments:**
@@ -285,14 +300,15 @@ This module contains the `Portfolio` class.
         - `objective_function` (`str`): The objective function to use in the optimization (max_sharpe, min_vol, max_return, nin_var, min_cvar, min_drawdown).
 
     - **Returns:**
-        - `PyPortfolio`: A Portfolio object.
+        - `Portfolio`: A Portfolio object.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT", "ZN=F"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
-        ```
+                import finalytics
+
+                portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
+
 
 2. **get_optimization_results() -> dict**
     Get the portfolio optimization results.
@@ -301,12 +317,13 @@ This module contains the `Portfolio` class.
         - `dict`: A dictionary containing optimization results.
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "SPY", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
-        optimization_results = portfolio.get_optimization_results()
-        ```
+                import finalytics
+
+                portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
+                optimization_results = portfolio.get_optimization_results()
+
 
 3. **display_portfolio_charts(display_format: str)**
     Display the portfolio optimization charts.
@@ -315,9 +332,9 @@ This module contains the `Portfolio` class.
         - `display_format` (`str`): The format to display the charts in (html, png).
 
     - **Example:**
-        ```python
-        import finalytics
+        ::
 
-        portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
-        portfolio.display_portfolio_charts("html")
-        ```
+                import finalytics
+
+                portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
+                portfolio.display_portfolio_charts("html")
