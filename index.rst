@@ -19,7 +19,7 @@ This module provides functions related to symbols.
 
         import finalytics
 
-        symbols = finalytics.get_symbols_py("Apple", "Equity")
+        symbols = finalytics.get_symbols("Apple", "Equity")
         print(symbols)
 
 
@@ -47,8 +47,8 @@ This module contains the `Ticker` class.
 
                 import finalytics
 
-                symbols = finalytics.get_symbols_py("Apple", "Equity")
-                print(symbols)
+                ticker = finalytics.Ticker("AAPL")
+                print(ticker.name, ticker.exchange, ticker.category, ticker.asset_class)
 
 
 2. **get_current_price() -> float**
