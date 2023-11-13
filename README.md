@@ -3,6 +3,9 @@
 [![pypi](https://img.shields.io/pypi/v/finalytics)](https://pypi.org/project/finalytics/)
 ![License](https://img.shields.io/crates/l/finalytics)
 [![Homepage](https://img.shields.io/badge/homepage-finalytics.rs-blue)](https://finalytics.rs/)
+[![Documentation Status](https://readthedocs.org/projects/finalytics-py/badge/?version=latest)](https://finalytics-py.readthedocs.io/en/latest/?badge=latest)
+
+
 
 This is a python binding for [Finalytics Rust Library](https://github.com/Nnamdi-sys/finalytics) designed for retrieving financial data and performing security analysis and portfolio optimization.
 
@@ -19,6 +22,8 @@ pip install finalytics
 Still in development
 
 ## Documentation
+
+View Library documentation on readthedocs [here](https://finalytics-py.readthedocs.io/en/latest/)
 
 ### Symbol Search
 
