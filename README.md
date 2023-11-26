@@ -68,3 +68,47 @@ print(portfolio.get_optimization_results())
 portfolio.display_portfolio_charts("html")
 ```
 
+### DeFi Liquidity Pools
+
+```python
+from finalytics import DefiPools
+
+defi_pools = DefiPools()
+print(f"Total Value Locked: ${defi_pools.total_value_locked:,.0f}")
+print(defi_pools.pools_data)
+print(defi_pools.unique_pools)
+print(defi_pools.unique_protocols)
+print(defi_pools.unique_chains)
+print(defi_pools.no_il_pools)
+print(defi_pools.stable_coin_pools)
+print(defi_pools.search_pools_by_symbol("USDC"))
+defi_pools.display_top_protocols_by_tvl("USDC-USDT", 20, "html")
+defi_pools.display_top_protocols_by_apy("USDC-USDT", 20, "html")
+defi_pools.display_pool_tvl_history("USDC-USDT", "uniswap-v3", "ethereum", "html")
+defi_pools.display_pool_apy_history("USDC-USDT", "uniswap-v3", "ethereum", "html")
+```
+
+### DeFi User Balances
+
+```python
+from finalytics import DefiBalances
+from finalytics import get_supported_protocols
+
+supported_protocols = get_supported_protocols()
+print(supported_protocols)
+
+# This function requires node.js and pnpm to be installed on the system
+# for macos: brew install node && npm install -g pnpm
+# for ubuntu: sudo apt install nodejs && npm install -g pnpm
+# for windows: https://nodejs.org/en/download/ && npm install -g pnpm
+
+defi_balances = DefiBalances(["wallet", "eigenlayer", "uniswap-v3", "gearbox", "ether.fi"],
+                                        ["ethereum", "arbitrum"],
+                                        "0x7ac34681f6aaeb691e150c43ee494177c0e2c183",
+                                         "html")
+print(defi_balances.balances)
+```
+
+
+
+

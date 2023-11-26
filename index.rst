@@ -338,3 +338,120 @@ This module contains the `Portfolio` class.
 
                 portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
                 portfolio.display_portfolio_charts("html")
+
+
+DeFi Module
+-------------
+
+.. _defi_pools:
+
+DefiPools Class
+---------------
+
+This class is a Python wrapper for the `finalytics` DefiPools class.
+
+DefiPools Class Methods
+-------------------------
+
+1. **new() -> DefiPools**
+    Create a new `DefiPools` object.
+
+    - **Returns:**
+        - `DefiPools`: A `DefiPools` object.
+
+    - **Example:**
+        ::
+
+            import finalytics
+
+            defi_pools = finalytics.DefiPools()
+            print(f"Total Value Locked: ${defi_pools.total_value_locked:,.0f}")
+            print(defi_pools.pools_data)
+            print(defi_pools.unique_pools)
+            print(defi_pools.unique_protocols)
+            print(defi_pools.unique_chains)
+            print(defi_pools.no_il_pools)
+            print(defi_pools.stable_coin_pools)
+
+
+2. **search_pools_by_symbol(symbol: str) -> List[str]**
+    Search the pools data for pools that match the search term.
+
+    - **Arguments:**
+        - `symbol` (`str`): Cryptocurrency symbol.
+
+    - **Returns:**
+        - `List[str]`: List of pools that match the search term.
+
+    - **Example:**
+        ::
+
+            import finalytics
+
+            defi_pools = finalytics.DefiPools()
+            print(defi_pools.search_pools_by_symbol("USDC"))
+
+
+3. **display_top_protocols_by_tvl(pool_symbol: str, num_protocols: int, display_format: str)**
+    Display the top protocols for a given symbol by total value locked.
+
+    - **Arguments:**
+        - `pool_symbol` (`str`): Liquidity pool symbol.
+        - `num_protocols` (`int`): Number of protocols to display.
+        - `display_format` (`str`): Display format for the chart (html or svg).
+
+    - **Example:**
+        ::
+
+            import finalytics
+
+            defi_pools = finalytics.DefiPools()
+            defi_pools.display_top_protocols_by_tvl("USDC-USDT", 20, "html")
+
+.. _defi_balances:
+
+DefiBalances Class
+------------------
+
+This class is a Python wrapper for the `finalytics` DefiBalances class.
+
+DefiBalances Class Methods
+-----------------------------
+
+1. **new(protocols: List[str], chains: List[str], address: str, display_format: str) -> PyDefiBalances**
+    Initializes a new `DefiBalances` object.
+
+    - **Arguments:**
+        - `protocols` (`List[str]`): List of protocols to fetch balances for.
+        - `chains` (`List[str]`): List of chains to fetch balances for.
+        - `address` (`str`): Wallet address to fetch balances for.
+        - `display_format` (`str`): Display format for the chart (html or svg).
+
+    - **Returns:**
+        - `DefiBalances`: A `DefiBalances` object.
+
+    - **Example:**
+        ::
+
+            import finalytics
+
+            defi_balances = finalytics.DefiBalances(["wallet", "eigenlayer", "uniswap-v3", "gearbox", "ether.fi"],
+                                                       ["ethereum", "arbitrum"],
+                                                       "0x7ac34681f6aaeb691e150c43ee494177c0e2c183",
+                                                       "html")
+            print(defi_balances.balances)
+
+
+2. **get_supported_protocols() -> Dict[str, List[str]]**
+    Fetches the supported protocols and chains for the `DefiBalances` class.
+
+    - **Returns:**
+        - `Dict[str, List[str]]`: Dictionary of protocols and chains.
+
+    - **Example:**
+        ::
+
+            import finalytics
+
+            supported_protocols = finalytics.get_supported_protocols()
+            print(supported_protocols)
