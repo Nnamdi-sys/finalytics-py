@@ -24,7 +24,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        target: [x64, x86]
+        target: [x64,] # x86 is not supported by charming (deno) for visualisation
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4

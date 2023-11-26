@@ -9,9 +9,12 @@ This module provides functions related to symbols.
 **get_symbols(query, asset_class)**
     Fetches ticker symbols that closely match the specified query and asset class.
 
-    :param query: str - ticker symbol query
-    :param asset_class: str - asset class (Equity, ETF, Mutual Fund, Index, Currency, Futures, Crypto)
-    :return: dict - dictionary of ticker symbols and names
+    - **Arguments:**
+        - `query` (`str`): The query to search for.
+        - `asset_class` (`str`): The asset class to search for.
+
+    - **Returns:**
+        - `List[str]`: A list of ticker symbols that closely match the query and asset class.
 
     **Example**
 
@@ -28,10 +31,12 @@ Ticker Module
 
 This module contains the `Ticker` class.
 
-**Ticker Class**
+Ticker Class
+------------
     A Python wrapper for the Ticker class in Finalytics.
 
-**Ticker Class Methods**
+Ticker Class Methods
+---------------------
 
 1. **new(symbol: str) -> Ticker**
     Create a new Ticker object.
@@ -280,10 +285,12 @@ Portfolio Module
 
 This module contains the `Portfolio` class.
 
-**Portfolio Class**
+Portfolio Class
+---------------
     A Python wrapper for the PortfolioCharts class in Finalytics.
 
-**Portfolio Class Methods**
+Portfolio Class Methods
+-------------------------
 
 1. **new(ticker_symbols: List[str], benchmark_symbol: str, start_date: str, end_date: str, interval: str, confidence_level: float, risk_free_rate: float, max_iterations: int, objective_function: str) -> Portfolio**
     Create a new Portfolio object.
