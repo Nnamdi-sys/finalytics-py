@@ -1,6 +1,6 @@
 [package]
 name = "finalytics"
-version = "0.1.9"
+version = "0.2.0"
 edition = "2021"
 
 [lib]
@@ -8,7 +8,7 @@ name = "finalytics"
 crate-type = ["cdylib"]
 
 [dependencies]
-finalytics = {version = "0.2.8", features = ["kaleido", "charming_ssr"]}
+finalytics = {version = "0.2.9", features = ["kaleido", "charming_ssr"]}
 polars = "0.33.0"
 tokio = { version = "1.32.0", features = ["full"] }
 pyo3 = { version = "0.20.0", features = ["extension-module", "generate-import-lib"] }

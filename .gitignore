@@ -5,3 +5,4 @@ dist
 *.iml
 *.db
 .DS_Store
+.ipynb_checkpoints

@@ -425,7 +425,7 @@ This class is a Python wrapper for the `finalytics` DefiBalances class.
 DefiBalances Class Methods
 -----------------------------
 
-1. **new(protocols: List[str], chains: List[str], address: str, display_format: str) -> PyDefiBalances**
+1. **new(protocols: List[str], chains: List[str], address: str, display_format: str) -> DefiBalances**
     Initializes a new `DefiBalances` object.
 
     - **Arguments:**
