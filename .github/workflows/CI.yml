@@ -34,7 +34,7 @@ jobs:
         run: |
             sudo apt-get update
             sudo apt-get install -y perl
-            sudo apt-get install -y libipc-cmd-perl
+            sudo cpan IPC::Cmd
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
