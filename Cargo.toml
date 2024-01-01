@@ -12,5 +12,3 @@ finalytics = {version = "0.3.2", features = ["kaleido", "charming_ssr"]}
 polars = "0.33.0"
 tokio = { version = "1.32.0", features = ["full"] }
 pyo3 = { version = "0.20.0", features = ["extension-module", "generate-import-lib"] }
-[target.'cfg(all(target_os = "linux", any(target_env = "musl", target_arch = "arm", target_arch = "aarch64")))'.dependencies]
-openssl = { version = "0.10", features = ["vendored"] }
