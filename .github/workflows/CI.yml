@@ -34,7 +34,7 @@ jobs:
         run: |
             sudo apt-get update
             sudo apt-get install -y perl
-            curl -L https://cpanmin.us | perl - App::cpanminus
+            sudo apt-get install -y cpanminus
       - name: Install libipc-cmd-perl
         run: sudo cpanm IPC::Cmd
       - name: Build wheels
