@@ -103,7 +103,7 @@ print(supported_protocols)
 # for ubuntu: sudo apt install nodejs && npm install -g pnpm
 # for windows: https://nodejs.org/en/download/ && npm install -g pnpm
 
-defi_balances = DefiBalances(["wallet", "eigenlayer", "uniswap-v3", "gearbox", "ether.fi"],
+defi_balances = DefiBalances(["wallet", "eigenlayer", "blast", "ether.fi"],
                                         ["ethereum", "arbitrum"],
                                         "0x7ac34681f6aaeb691e150c43ee494177c0e2c183",
                                          "html")
