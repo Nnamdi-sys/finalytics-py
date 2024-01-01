@@ -442,7 +442,7 @@ DefiBalances Class Methods
 
             import finalytics
 
-            defi_balances = finalytics.DefiBalances(["wallet", "eigenlayer", "uniswap-v3", "gearbox", "ether.fi"],
+            defi_balances = finalytics.DefiBalances(["wallet", "eigenlayer", "blast", "ether.fi"],
                                                        ["ethereum", "arbitrum"],
                                                        "0x7ac34681f6aaeb691e150c43ee494177c0e2c183",
                                                        "html")
