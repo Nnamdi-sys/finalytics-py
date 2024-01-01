@@ -33,7 +33,7 @@ jobs:
       - name: Install openssl
         run: |
             sudo apt update
-            sudo apt install -y build-essential pkg-config openssl libssl-dev
+            sudo apt install -y build-essential pkg-config openssl openssl-dev libssl-dev
             cargo clean
             export OPENSSL_LIB_DIR="/usr/lib/x86_64-linux-gnu" 
             export OPENSSL_INCLUDE_DIR="/usr/include/openssl"
