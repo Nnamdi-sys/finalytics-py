@@ -12,15 +12,9 @@ This is a python binding for [Finalytics Rust Library](https://github.com/Nnamdi
 
 ## Installation
 
-#### Windows and MacOS
-
 ```bash
 pip install finalytics
 ```
-
-#### Linux
-
-Still in development
 
 ## Documentation
 
