@@ -1,3 +1,4 @@
+use std::error::Error;
 use polars::export::arrow::ffi;
 use polars::prelude::*;
 use pyo3::ffi::Py_uintptr_t;
@@ -65,5 +66,20 @@ pub fn rust_series_to_py_series(series: &Series) -> PyResult<PyObject> {
         let polars = py.import("polars")?;
         let out = polars.call_method1("from_arrow", (pyarrow_array,))?;
         Ok(out.to_object(py))
+    })
+}
+
+pub fn display_html_with_iframe(html_content: &str, file_path: &str, width: usize, height: usize) -> Result<(), Box<dyn Error>> {
+    std::fs::write(file_path, html_content)?;
+
+    Python::with_gil(|py| {
+        let jupyter = py.import("IPython.display")?;
+
+        // Instantiate the IFrame class with the required parameters
+        let iframe = jupyter.call_method1("IFrame", (file_path, width, height))?;
+
+        // Display the IFrame
+        jupyter.call_method1("display", (iframe,))?;
+        Ok(())
     })
 }

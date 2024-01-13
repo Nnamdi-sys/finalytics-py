@@ -25,11 +25,11 @@ View Library documentation on readthedocs [here](https://finalytics-py.readthedo
 ```python
 from finalytics import get_symbols
 
-print(get_symbols("Apple", "Equity"))
-print(get_symbols("Bitcoin", "Crypto"))
-print(get_symbols("S&P 500", "Index"))
-print(get_symbols("EURUSD", "Currency"))
-print(get_symbols("SPY", "ETF"))
+print(get_symbols(query="Apple", asset_class="Equity"))
+print(get_symbols(query="Bitcoin", asset_class="Crypto"))
+print(get_symbols(query="S&P 500", asset_class="Index"))
+print(get_symbols(query="EURUSD", asset_class="Currency"))
+print(get_symbols(query="SPY", asset_class="ETF"))
 ```
 
 ### Security Analysis
@@ -37,20 +37,22 @@ print(get_symbols("SPY", "ETF"))
 ```python
 from finalytics import Ticker
 
-ticker = Ticker("AAPL")
+ticker = Ticker(symbol="AAPL")
 print(ticker.get_current_price())
 print(ticker.get_summary_stats())
-print(ticker.get_price_history("2023-01-01", "2023-10-31", "1d"))
+print(ticker.get_price_history(start="2023-01-01", end="2023-10-31", interval="1d"))
 print(ticker.get_options_chain())
-print(ticker.get_news("2023-11-01", "2023-11-10", False))
+print(ticker.get_news(start="2023-11-01", end="2023-11-10", compute_sentiment=False))
 print(ticker.get_income_statement())
 print(ticker.get_balance_sheet())
 print(ticker.get_cashflow_statement())
 print(ticker.get_financial_ratios())
-print(ticker.compute_performance_stats("2023-01-01", "2023-10-31", "1d", "^GSPC", 0.95, 0.02))
-ticker.display_performance_chart("2023-01-01", "2023-10-31", "1d", "^GSPC", 0.95, 0.02, "html")
-ticker.display_candlestick_chart("2023-01-01", "2023-10-31", "1d", "html")
-ticker.display_options_chart(0.02, "png")
+print(ticker.compute_performance_stats(start="2023-01-01", end="2023-10-31", interval="1d", benchmark="^GSPC", 
+                                       confidence_level=0.95, risk_free_rate=0.02))
+ticker.display_performance_chart(start="2023-01-01", end="2023-10-31", interval="1d", benchmark="^GSPC", 
+                                 confidence_level=0.95, risk_free_rate=0.02, display_format="notebook")
+ticker.display_candlestick_chart(start="2023-01-01", end="2023-10-31", interval="1d", display_format="html")
+ticker.display_options_chart(risk_free_rate=0.02, chart_type="surface", display_format="png")
 ```
 
 ### Portfolio Optimization
@@ -58,7 +60,10 @@ ticker.display_options_chart(0.02, "png")
 ```python
 from finalytics import Portfolio
 
-portfolio = Portfolio(["AAPL", "GOOG", "MSFT", "BTC-USD"], "^GSPC", "2020-01-01", "2022-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
+portfolio = Portfolio(ticker_symbols=["AAPL", "GOOG", "MSFT", "BTC-USD"], 
+                      benchmark="^GSPC", start="2020-01-01", end="2022-01-01", interval="1d", 
+                      confidence_level=0.95, risk_free_rate=0.02, max_iterations=1000, 
+                      objective_function="max_sharpe")
 print(portfolio.get_optimization_results())
 portfolio.display_portfolio_charts("html")
 ```
@@ -70,17 +75,10 @@ from finalytics import DefiPools
 
 defi_pools = DefiPools()
 print(f"Total Value Locked: ${defi_pools.total_value_locked:,.0f}")
-print(defi_pools.pools_data)
-print(defi_pools.unique_pools)
-print(defi_pools.unique_protocols)
-print(defi_pools.unique_chains)
-print(defi_pools.no_il_pools)
-print(defi_pools.stable_coin_pools)
-print(defi_pools.search_pools_by_symbol("USDC"))
-defi_pools.display_top_protocols_by_tvl("USDC-USDT", 20, "html")
-defi_pools.display_top_protocols_by_apy("USDC-USDT", 20, "html")
-defi_pools.display_pool_tvl_history("USDC-USDT", "uniswap-v3", "ethereum", "html")
-defi_pools.display_pool_apy_history("USDC-USDT", "uniswap-v3", "ethereum", "html")
+defi_pools.display_top_protocols_by_tvl(pool_symbol="USDC-USDT", num_protocols=20, display_format="html")
+defi_pools.display_top_protocols_by_apy(pool_symbol="USDC-USDT", num_protocols=20, display_format="html")
+defi_pools.display_pool_tvl_history(pool_symbol="USDC-USDT", protocol="uniswap-v3", chain="ethereum", display_format="html")
+defi_pools.display_pool_apy_history(pool_symbol="USDC-USDT", protocol="uniswap-v3", chain="ethereum", display_format="html")
 ```
 
 ### DeFi User Balances
@@ -97,10 +95,10 @@ print(supported_protocols)
 # for ubuntu: sudo apt install nodejs && npm install -g pnpm
 # for windows: https://nodejs.org/en/download/ && npm install -g pnpm
 
-defi_balances = DefiBalances(["wallet", "eigenlayer", "blast", "ether.fi"],
-                                        ["ethereum", "arbitrum"],
-                                        "0x7ac34681f6aaeb691e150c43ee494177c0e2c183",
-                                         "html")
+defi_balances = DefiBalances(protocols=["wallet", "eigenlayer", "blast", "ether.fi"],
+                             chains=["ethereum", "arbitrum"],
+                             address="0x7ac34681f6aaeb691e150c43ee494177c0e2c183",
+                             display_format="html")
 print(defi_balances.balances)
 ```
 

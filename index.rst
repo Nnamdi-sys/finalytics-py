@@ -1,12 +1,17 @@
 Welcome to Finalytics Documentation
 ====================================
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
 Symbols Module
 --------------
 
 This module provides functions related to symbols.
 
-**get_symbols(query, asset_class)**
+.. function:: get_symbols(query, asset_class) -> List[str]
+
     Fetches ticker symbols that closely match the specified query and asset class.
 
     - **Arguments:**
@@ -35,248 +40,284 @@ Ticker Class
 ------------
     A Python wrapper for the Ticker class in Finalytics.
 
-Ticker Class Methods
----------------------
+   .. method:: __init__(symbol: str) -> Ticker
 
-1. **new(symbol: str) -> Ticker**
-    Create a new Ticker object.
+      Create a new Ticker object.
 
-    - **Arguments:**
-        - `symbol` (`str`): The ticker symbol of the asset.
+      :param symbol: The ticker symbol of the asset.
+      :type symbol: str
 
-    - **Returns:**
-        - `Ticker`: A Ticker object.
+      :returns: A Ticker object.
+      :rtype: Ticker
 
-    - **Example:**
-        ::
+      :example:
 
-                import finalytics
+         Import the library and create a ticker:
 
-                ticker = finalytics.Ticker("AAPL")
-                print(ticker.name, ticker.exchange, ticker.category, ticker.asset_class)
+         .. code-block:: python
 
+            import finalytics
 
-2. **get_current_price() -> float**
-    Get the current price of the ticker.
+            ticker = finalytics.Ticker("AAPL")
+            print(ticker.name, ticker.exchange, ticker.category, ticker.asset_class)
 
-    - **Returns:**
-        - `float`: The current price of the ticker.
+   .. method:: get_current_price() -> float
 
-    - **Example:**
-        ::
+      Get the current price of the ticker.
 
-                import finalytics
+      :returns: The current price of the ticker.
+      :rtype: float
 
-                ticker = finalytics.Ticker("AAPL")
-                current_price = ticker.get_current_price()
+      :example:
 
+         .. code-block:: python
 
-3. **get_summary_stats() -> dict**
-    Get summary technical and fundamental statistics for the ticker.
+            import finalytics
 
-    - **Returns:**
-        - `dict`: A dictionary containing the summary statistics.
+            ticker = finalytics.Ticker("AAPL")
+            current_price = ticker.get_current_price()
 
-    - **Example:**
-        ::
+   .. method:: get_summary_stats() -> dict
 
-                import finalytics
+      Get summary technical and fundamental statistics for the ticker.
 
-                ticker = finalytics.Ticker("AAPL")
-                summary_stats = ticker.get_summary_stats()
+      :returns: A dictionary containing the summary statistics.
+      :rtype: dict
 
+      :example:
 
-4. **get_price_history(start: str, end: str, interval: str) -> DataFrame**
-    Get the ohlcv data for the ticker for a given time period.
+         .. code-block:: python
 
-    - **Arguments:**
-        - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
+            import finalytics
 
-    - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the ohlcv data.
+            ticker = finalytics.Ticker("AAPL")
+            summary_stats = ticker.get_summary_stats()
 
-    - **Example:**
-        ::
+   .. method:: get_price_history(start: str, end: str, interval: str) -> DataFrame
 
-                import finalytics
+      Get the ohlcv data for the ticker for a given time period.
 
-                ticker = finalytics.Ticker("AAPL")
-                ohlcv = ticker.get_price_history("2020-01-01", "2020-12-31", "1d")
+      :param start: The start date of the time period in the format YYYY-MM-DD.
+      :type start: str
+      :param end: The end date of the time period in the format YYYY-MM-DD.
+      :type end: str
+      :param interval: The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
+      :type interval: str
 
+      :returns: A Polars DataFrame containing the ohlcv data.
+      :rtype: DataFrame
 
-5. **get_options_chain() -> DataFrame**
-    Get the options chain for the ticker.
+      :example:
 
-    - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the options chain.
+         .. code-block:: python
 
-    - **Example:**
-        ::
+            import finalytics
 
-                import finalytics
+            ticker = finalytics.Ticker("AAPL")
+            ohlcv = ticker.get_price_history("2020-01-01", "2020-12-31", "1d")
 
-                ticker = finalytics.Ticker("AAPL")
-                options_chain = ticker.get_options_chain()
+   .. method:: get_options_chain() -> DataFrame
 
+      Get the options chain for the ticker.
 
-6. **get_news(start: str, end: str, compute_sentiment: bool) -> dict**
-    Get the news for the ticker for a given time period.
+      :returns: A Polars DataFrame containing the options chain.
+      :rtype: DataFrame
 
-    - **Arguments:**
-        - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `compute_sentiment` (`bool`): Whether to compute the sentiment of the news articles.
+      :example:
 
-    - **Returns:**
-        - `dict`: A dictionary containing the news articles (and sentiment results if requested).
+         .. code-block:: python
 
-    - **Example:**
-        ::
+            import finalytics
 
-                import finalytics
+            ticker = finalytics.Ticker("AAPL")
+            options_chain = ticker.get_options_chain()
 
-                ticker = finalytics.Ticker("AAPL")
-                news = ticker.get_news("2020-01-01", "2020-12-31", False)
+   .. method:: get_news(start: str, end: str, compute_sentiment: bool) -> dict
 
+      Get the news for the ticker for a given time period.
 
-7. **get_income_statement() -> DataFrame**
-    Get the Income Statement for the ticker.
+      :param start: The start date of the time period in the format YYYY-MM-DD.
+      :type start: str
+      :param end: The end date of the time period in the format YYYY-MM-DD.
+      :type end: str
+      :param compute_sentiment: Whether to compute the sentiment of the news articles.
+      :type compute_sentiment: bool
 
-    - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the Income Statement.
+      :returns: A dictionary containing the news articles (and sentiment results if requested).
+      :rtype: dict
 
-    - **Example:**
-        ::
+      :example:
 
-                import finalytics
+         .. code-block:: python
 
-                ticker = finalytics.Ticker("AAPL")
-                income_statement = ticker.get_income_statement()
+            import finalytics
 
+            ticker = finalytics.Ticker("AAPL")
+            news = ticker.get_news("2020-01-01", "2020-12-31", False)
 
-8. **get_balance_sheet() -> DataFrame**
-    Get the Balance Sheet for the ticker.
+   .. method:: get_income_statement() -> DataFrame
 
-    - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the Balance Sheet.
+      Get the Income Statement for the ticker.
 
-    - **Example:**
-        ::
+      :returns: A Polars DataFrame containing the Income Statement.
+      :rtype: DataFrame
 
-                import finalytics
+      :example:
 
-                ticker = finalytics.Ticker("AAPL")
-                balance_sheet = ticker.get_balance_sheet()
+         .. code-block:: python
 
+            import finalytics
 
-9. **get_cashflow_statement() -> DataFrame**
-    Get the Cashflow Statement for the ticker.
+            ticker = finalytics.Ticker("AAPL")
+            income_statement = ticker.get_income_statement()
 
-    - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the Cashflow Statement.
+   .. method:: get_balance_sheet() -> DataFrame
 
-    - **Example:**
-        ::
+      Get the Balance Sheet for the ticker.
 
-                import finalytics
+      :returns: A Polars DataFrame containing the Balance Sheet.
+      :rtype: DataFrame
 
-                ticker = finalytics.Ticker("AAPL")
-                cashflow_statement = ticker.get_cashflow_statement()
+      :example:
 
+         .. code-block:: python
 
-10. **get_financial_ratios() -> DataFrame**
-    Get the Financial Ratios for the ticker.
+            import finalytics
 
-    - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the Financial Ratios.
+            ticker = finalytics.Ticker("AAPL")
+            balance_sheet = ticker.get_balance_sheet()
 
-    - **Example:**
-        ::
+   .. method:: get_cashflow_statement() -> DataFrame
 
-                import finalytics
+      Get the Cashflow Statement for the ticker.
 
-                ticker = finalytics.Ticker("AAPL")
-                financial_ratios = ticker.get_financial_ratios()
+      :returns: A Polars DataFrame containing the Cashflow Statement.
+      :rtype: DataFrame
 
+      :example:
 
-11. **compute_performance_stats(start: str, end: str, interval: str, benchmark: str, confidence_level: float, risk_free_rate: float) -> dict**
-    Compute the performance statistics for the ticker.
+         .. code-block:: python
 
-    - **Arguments:**
-        - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
-        - `benchmark` (`str`): The ticker symbol of the benchmark to compare against.
-        - `confidence_level` (`float`): The confidence level for the VaR and ES calculations.
-        - `risk_free_rate` (`float`): The risk free rate to use in the calculations.
+            import finalytics
 
-    - **Returns:**
-        - `dict`: A dictionary containing the performance statistics.
+            ticker = finalytics.Ticker("AAPL")
+            cashflow_statement = ticker.get_cashflow_statement()
 
-    - **Example:**
-        ::
+   .. method:: get_financial_ratios() -> DataFrame
 
-               import finalytics
+      Get the Financial Ratios for the ticker.
 
-               ticker = finalytics.Ticker("AAPL")
-               performance_stats = ticker.compute_performance_stats("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02)
+      :returns: A Polars DataFrame containing the Financial Ratios.
+      :rtype: DataFrame
 
+      :example:
 
-12. **display_performance_chart(start: str, end: str, interval: str, benchmark: str, confidence_level: float, risk_free_rate: float, display_format: str)**
-    Display the performance chart for the ticker.
+         .. code-block:: python
 
-    - **Arguments:**
-        - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
-        - `benchmark` (`str`): The ticker symbol of the benchmark to compare against.
-        - `confidence_level` (`float`): The confidence level for the VaR and ES calculations.
-        - `risk_free_rate` (`float`): The risk free rate to use in the calculations.
-        - `display_format` (`str`): The format to display the chart in (png, html).
+            import finalytics
 
-    - **Example:**
-        ::
+            ticker = finalytics.Ticker("AAPL")
+            financial_ratios = ticker.get_financial_ratios()
 
-                import finalytics
+   .. method:: compute_performance_stats(start: str, end: str, interval: str, benchmark: str, confidence_level: float, risk_free_rate: float) -> dict
 
-                ticker = finalytics.Ticker("AAPL")
-                ticker.display_performance_chart("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02, "html")
+      Compute the performance statistics for the ticker.
 
+      :param start: The start date of the time period in the format YYYY-MM-DD.
+      :type start: str
+      :param end: The end date of the time period in the format YYYY-MM-DD.
+      :type end: str
+      :param interval: The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
+      :type interval: str
+      :param benchmark: The ticker symbol of the benchmark to compare against.
+      :type benchmark: str
+      :param confidence_level: The confidence level for the VaR and ES calculations.
+      :type confidence_level: float
+      :param risk_free_rate: The risk free rate to use in the calculations.
+      :type risk_free_rate: float
 
-13. **display_candlestick_chart(start: str, end: str, interval: str, display_format: str)**
-    Display the candlestick chart for the ticker.
+      :returns: A dictionary containing the performance statistics.
+      :rtype: dict
 
-    - **Arguments:**
-        - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
-        - `display_format` (`str`): The format to display the chart in (png, html).
+      :example:
 
-    - **Example:**
-        ::
+         .. code-block:: python
 
-                import finalytics
+            import finalytics
 
-                ticker = finalytics.Ticker("AAPL")
-                ticker.display_candlestick_chart("2020-01-01", "2020-12-31", "1d", "html")
+            ticker = finalytics.Ticker("AAPL")
+            performance_stats = ticker.compute_performance_stats("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02)
 
+   .. method:: display_performance_chart(start: str, end: str, interval: str, benchmark: str, confidence_level: float, risk_free_rate: float, display_format: str) -> None
 
-14. **display_options_chart(risk_free_rate: float, display_format: str)**
-    Display the options volatility surface, smile, and term structure charts for the ticker.
+      Display the performance chart for the ticker.
 
-    - **Arguments:**
-        - `risk_free_rate` (`float`): The risk free rate to use in the calculations.
-        - `display_format` (`str`): The format to display the chart in (png, html).
+      :param start: The start date of the time period in the format YYYY-MM-DD.
+      :type start: str
+      :param end: The end date of the time period in the format YYYY-MM-DD.
+      :type end: str
+      :param interval: The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
+      :type interval: str
+      :param benchmark: The ticker symbol of the benchmark to compare against.
+      :type benchmark: str
+      :param confidence_level: The confidence level for the VaR and ES calculations.
+      :type confidence_level: float
+      :param risk_free_rate: The risk free rate to use in the calculations.
+      :type risk_free_rate: float
+      :param display_format: The format to display the chart in (png, html, notebook).
+      :type display_format: str
 
-    - **Example:**
-        ::
+      :example:
 
-                import finalytics
+         .. code-block:: python
 
-                ticker = finalytics.Ticker("AAPL")
-                ticker.display_options_chart(0.02, "html")
+            import finalytics
+
+            ticker = finalytics.Ticker("AAPL")
+            ticker.display_performance_chart("2020-01-01", "2020-12-31", "1d", "^GSPC", 0.95, 0.02, "html")
+
+   .. method:: display_candlestick_chart(start: str, end: str, interval: str, display_format: str) -> None
+
+      Display the candlestick chart for the ticker.
+
+      :param start: The start date of the time period in the format YYYY-MM-DD.
+      :type start: str
+      :param end: The end date of the time period in the format YYYY-MM-DD.
+      :type end: str
+      :param interval: The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
+      :type interval: str
+      :param display_format: The format to display the chart in (png, html, notebook).
+      :type display_format: str
+
+      :example:
+
+         .. code-block:: python
+
+            import finalytics
+
+            ticker = finalytics.Ticker("AAPL")
+            ticker.display_candlestick_chart("2020-01-01", "2020-12-31", "1d", "html")
+
+   .. method:: display_options_chart(risk_free_rate: float, display_format: str) -> None
+
+      Display the options volatility surface, smile, and term structure charts for the ticker.
+
+      :param risk_free_rate: The risk free rate to use in the calculations.
+      :type risk_free_rate: float
+      :param chart_type: The type of volatility chart to display (surface, smile, term_structure).
+      :type chart_type: str
+      :param display_format: The format to display the chart in (png, html, notebook).
+      :type display_format: str
+
+      :example:
+
+         .. code-block:: python
+
+            import finalytics
+
+            ticker = finalytics.Ticker("AAPL")
+            ticker.display_options_chart(0.02, "html")
+
 
 
 
@@ -289,174 +330,268 @@ Portfolio Class
 ---------------
     A Python wrapper for the PortfolioCharts class in Finalytics.
 
-Portfolio Class Methods
--------------------------
+   .. method:: __init__(ticker_symbols: List[str], benchmark_symbol: str, start_date: str, end_date: str, interval: str, confidence_level: float, risk_free_rate: float, max_iterations: int, objective_function: str) -> Portfolio
 
-1. **new(ticker_symbols: List[str], benchmark_symbol: str, start_date: str, end_date: str, interval: str, confidence_level: float, risk_free_rate: float, max_iterations: int, objective_function: str) -> Portfolio**
-    Create a new Portfolio object.
+      Create a new Portfolio object.
 
-    - **Arguments:**
-        - `ticker_symbols` (`List[str]`): List of ticker symbols for the assets in the portfolio.
-        - `benchmark_symbol` (`str`): The ticker symbol of the benchmark to compare against.
-        - `start_date` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end_date` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
-        - `confidence_level` (`float`): The confidence level for the VaR and ES calculations.
-        - `risk_free_rate` (`float`): The risk-free rate to use in the calculations.
-        - `max_iterations` (`int`): The maximum number of iterations to use in the optimization.
-        - `objective_function` (`str`): The objective function to use in the optimization (max_sharpe, min_vol, max_return, nin_var, min_cvar, min_drawdown).
+      :param ticker_symbols: List of ticker symbols for the assets in the portfolio.
+      :type ticker_symbols: List[str]
+      :param benchmark_symbol: The ticker symbol of the benchmark to compare against.
+      :type benchmark_symbol: str
+      :param start_date: The start date of the time period in the format YYYY-MM-DD.
+      :type start_date: str
+      :param end_date: The end date of the time period in the format YYYY-MM-DD.
+      :type end_date: str
+      :param interval: The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
+      :type interval: str
+      :param confidence_level: The confidence level for the VaR and ES calculations.
+      :type confidence_level: float
+      :param risk_free_rate: The risk-free rate to use in the calculations.
+      :type risk_free_rate: float
+      :param max_iterations: The maximum number of iterations to use in the optimization.
+      :type max_iterations: int
+      :param objective_function: The objective function to use in the optimization (max_sharpe, min_vol, max_return, nin_var, min_cvar, min_drawdown).
+      :type objective_function: str
 
-    - **Returns:**
-        - `Portfolio`: A Portfolio object.
+      :returns: A Portfolio object.
+      :rtype: Portfolio
 
-    - **Example:**
-        ::
+      :example:
 
-                import finalytics
+         Import the library and create a portfolio:
 
-                portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
+         .. code-block:: python
 
+            import finalytics
 
-2. **get_optimization_results() -> dict**
-    Get the portfolio optimization results.
+            portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
 
-    - **Returns:**
-        - `dict`: A dictionary containing optimization results.
+   .. method:: get_optimization_results() -> dict
 
-    - **Example:**
-        ::
+      Get the portfolio optimization results.
 
-                import finalytics
+      :returns: A dictionary containing optimization results.
+      :rtype: dict
 
-                portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
-                optimization_results = portfolio.get_optimization_results()
+      :example:
 
+         .. code-block:: python
 
-3. **display_portfolio_charts(display_format: str)**
-    Display the portfolio optimization charts.
+            import finalytics
 
-    - **Arguments:**
-        - `display_format` (`str`): The format to display the charts in (html, png).
+            portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
+            optimization_results = portfolio.get_optimization_results()
 
-    - **Example:**
-        ::
+   .. method:: display_portfolio_charts(display_format: str) -> None
 
-                import finalytics
+      Display the portfolio optimization charts.
 
-                portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
-                portfolio.display_portfolio_charts("html")
+      :param chart_type: The type of chart to display (optimization, performance, asset_returns).
+      :type chart_type: str
+      :param display_format: The format to display the charts in (html, png, notebook).
+      :type display_format: str
+
+      :example:
+
+         .. code-block:: python
+
+            import finalytics
+
+            portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
+            portfolio.display_portfolio_charts("performance", "html")
+
 
 
 DeFi Module
 -------------
 
-.. _defi_pools:
+This module contains the `DefiPools` and `DefiBalances` classes.
 
 DefiPools Class
 ---------------
 
-This class is a Python wrapper for the `finalytics` DefiPools class.
+    This class is a Python wrapper for the `finalytics` DefiPools class.
 
-DefiPools Class Methods
--------------------------
+    .. class:: DefiPools
 
-1. **new() -> DefiPools**
-    Create a new `DefiPools` object.
+       DefiPools is a class that provides information about decentralized finance (DeFi) liquidity pools.
 
-    - **Returns:**
-        - `DefiPools`: A `DefiPools` object.
+       .. method:: __init__() -> DefiPools
 
-    - **Example:**
-        ::
+          Create a new `DefiPools` object.
 
-            import finalytics
+          :returns: A `DefiPools` object.
+          :rtype: DefiPools
 
-            defi_pools = finalytics.DefiPools()
-            print(f"Total Value Locked: ${defi_pools.total_value_locked:,.0f}")
-            print(defi_pools.pools_data)
-            print(defi_pools.unique_pools)
-            print(defi_pools.unique_protocols)
-            print(defi_pools.unique_chains)
-            print(defi_pools.no_il_pools)
-            print(defi_pools.stable_coin_pools)
+          :example:
 
+             Import the library and create a `DefiPools` object:
 
-2. **search_pools_by_symbol(symbol: str) -> List[str]**
-    Search the pools data for pools that match the search term.
+             .. code-block:: python
 
-    - **Arguments:**
-        - `symbol` (`str`): Cryptocurrency symbol.
+                import finalytics
 
-    - **Returns:**
-        - `List[str]`: List of pools that match the search term.
-
-    - **Example:**
-        ::
-
-            import finalytics
-
-            defi_pools = finalytics.DefiPools()
-            print(defi_pools.search_pools_by_symbol("USDC"))
+                defi_pools = finalytics.DefiPools()
+                print(f"Total Value Locked: ${defi_pools.total_value_locked:,.0f}")
+                print(defi_pools.pools_data)
 
 
-3. **display_top_protocols_by_tvl(pool_symbol: str, num_protocols: int, display_format: str)**
-    Display the top protocols for a given symbol by total value locked.
+       .. method:: search_pools_by_symbol(symbol: str) -> List[str]
 
-    - **Arguments:**
-        - `pool_symbol` (`str`): Liquidity pool symbol.
-        - `num_protocols` (`int`): Number of protocols to display.
-        - `display_format` (`str`): Display format for the chart (html or svg).
+          Search the pools data for pools that match the search term.
 
-    - **Example:**
-        ::
+          :param symbol: Cryptocurrency symbol.
+          :type symbol: str
 
-            import finalytics
+          :returns: List of pools that match the search term.
+          :rtype: List[str]
 
-            defi_pools = finalytics.DefiPools()
-            defi_pools.display_top_protocols_by_tvl("USDC-USDT", 20, "html")
+          :example:
 
-.. _defi_balances:
+             .. code-block:: python
+
+                import finalytics
+
+                defi_pools = finalytics.DefiPools()
+                print(defi_pools.search_pools_by_symbol("USDC"))
+
+
+       .. method:: display_top_protocols_by_tvl(pool_symbol: str, num_protocols: int, display_format: str)
+
+          Display the top protocols for a given symbol by total value locked.
+
+          :param pool_symbol: Liquidity pool symbol.
+          :type pool_symbol: str
+          :param num_protocols: Number of protocols to display.
+          :type num_protocols: int
+          :param display_format: Display format for the chart (html, svg, notebook).
+          :type display_format: str
+
+          :example:
+
+             .. code-block:: python
+
+                import finalytics
+
+                defi_pools = finalytics.DefiPools()
+                defi_pools.display_top_protocols_by_tvl("USDC-USDT", 20, "html")
+
+
+       .. method:: display_top_protocols_by_apy(pool_symbol: str, num_protocols: int, display_format: str)
+
+          Display the top protocols for a given symbol by APY.
+
+          :param pool_symbol: Liquidity pool symbol.
+          :type pool_symbol: str
+          :param num_protocols: Number of protocols to display.
+          :type num_protocols: int
+          :param display_format: Display format for the chart (html, svg, notebook).
+          :type display_format: str
+
+          :example:
+
+             .. code-block:: python
+
+                import finalytics
+
+                defi_pools = finalytics.DefiPools()
+                defi_pools.display_top_protocols_by_apy("USDC-USDT", 20, "html")
+
+
+       .. method:: display_pool_tvl_history(pool_symbol: str, protocol: str, chain: str, display_format: str)
+
+          Display the total value locked history for a given pool.
+
+          :param pool_symbol: Liquidity pool symbol.
+          :type pool_symbol: str
+          :param protocol: Protocol.
+          :type protocol: str
+          :param chain: Blockchain.
+          :type chain: str
+          :param display_format: Display format for the chart (html, svg, notebook).
+          :type display_format: str
+
+          :example:
+
+             .. code-block:: python
+
+                import finalytics
+
+                defi_pools = finalytics.DefiPools()
+                defi_pools.display_pool_tvl_history("USDC-USDT", "uniswap-v3", "ethereum", "html")
+
+
+       .. method:: display_pool_apy_history(pool_symbol: str, protocol: str, chain: str, display_format: str)
+
+          Display the APY history for a given pool.
+
+          :param pool_symbol: Liquidity pool symbol.
+          :type pool_symbol: str
+          :param protocol: Protocol.
+          :type protocol: str
+          :param chain: Blockchain.
+          :type chain: str
+          :param display_format: Display format for the chart (html, svg, notebook).
+          :type display_format: str
+
+          :example:
+
+             .. code-block:: python
+
+                import finalytics
+
+                defi_pools = finalytics.DefiPools()
+                defi_pools.display_pool_apy_history("USDC-USDT", "uniswap-v3", "ethereum", "html")
+
 
 DefiBalances Class
 ------------------
 
-This class is a Python wrapper for the `finalytics` DefiBalances class.
+    This class is a Python wrapper for the `finalytics` DefiBalances class.
 
-DefiBalances Class Methods
------------------------------
+    .. class:: DefiBalances
 
-1. **new(protocols: List[str], chains: List[str], address: str, display_format: str) -> DefiBalances**
-    Initializes a new `DefiBalances` object.
+       DefiBalances is a class that provides information about decentralized finance (DeFi) wallet balances.
 
-    - **Arguments:**
-        - `protocols` (`List[str]`): List of protocols to fetch balances for.
-        - `chains` (`List[str]`): List of chains to fetch balances for.
-        - `address` (`str`): Wallet address to fetch balances for.
-        - `display_format` (`str`): Display format for the chart (html or svg).
+       .. method:: __init__(protocols: List[str], chains: List[str], address: str, display_format: str) -> DefiBalances
 
-    - **Returns:**
-        - `DefiBalances`: A `DefiBalances` object.
+          Initializes a new `DefiBalances` object.
 
-    - **Example:**
-        ::
+          :param protocols: List of protocols to fetch balances for.
+          :type protocols: List[str]
+          :param chains: List of chains to fetch balances for.
+          :type chains: List[str]
+          :param address: Wallet address to fetch balances for.
+          :type address: str
+          :param display_format: Display format for the chart (html, svg, notebook).
+          :type display_format: str
 
-            import finalytics
+          :returns: A `DefiBalances` object.
+          :rtype: DefiBalances
 
-            defi_balances = finalytics.DefiBalances(["wallet", "eigenlayer", "blast", "ether.fi"],
-                                                       ["ethereum", "arbitrum"],
-                                                       "0x7ac34681f6aaeb691e150c43ee494177c0e2c183",
-                                                       "html")
-            print(defi_balances.balances)
+          :example:
+
+             .. code-block:: python
+
+                import finalytics
+
+                defi_balances = finalytics.DefiBalances(["wallet", "eigenlayer", "blast", "ether.fi"],
+                                                           ["ethereum", "arbitrum"],
+                                                           "0x7ac34681f6aaeb691e150c43ee494177c0e2c183",
+                                                           "html")
+                print(defi_balances.balances)
 
 
-2. **get_supported_protocols() -> Dict[str, List[str]]**
-    Fetches the supported protocols and chains for the `DefiBalances` class.
+    .. function:: get_supported_protocols() -> Dict[str, List[str]]
 
-    - **Returns:**
-        - `Dict[str, List[str]]`: Dictionary of protocols and chains.
+      Fetches the supported protocols and chains for the `DefiBalances` class.
 
-    - **Example:**
-        ::
+      :returns: Dictionary of protocols and chains.
+      :rtype: Dict[str, List[str]]
+
+      :example:
+
+         .. code-block:: python
 
             import finalytics
 
