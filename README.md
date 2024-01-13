@@ -5,6 +5,7 @@
 [![Homepage](https://img.shields.io/badge/homepage-finalytics.rs-blue)](https://finalytics.rs/)
 [![Documentation Status](https://readthedocs.org/projects/finalytics-py/badge/?version=latest)](https://finalytics-py.readthedocs.io/en/latest/?badge=latest)
 ![PePy](https://static.pepy.tech/personalized-badge/finalytics?period=total&units=international_system&left_color=black&right_color=blue&left_text=Downloads)
+[![CodeFactor](https://www.codefactor.io/repository/github/nnamdi-sys/finalytics-py/badge)](https://www.codefactor.io/repository/github/nnamdi-sys/finalytics-py)
 
 
 
