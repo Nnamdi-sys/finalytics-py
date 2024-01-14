@@ -1,10 +1,11 @@
 use std::error::Error;
+use plotly::Plot;
 use polars::export::arrow::ffi;
 use polars::prelude::*;
 use pyo3::ffi::Py_uintptr_t;
 use pyo3::prelude::*;
 use pyo3::{PyObject, PyResult};
-use pyo3::types::PyDict;
+use pyo3::types:: PyDict;
 
 
 pub fn rust_df_to_py_df(df: &DataFrame) -> PyResult<PyObject> {
@@ -69,17 +70,43 @@ pub fn rust_series_to_py_series(series: &Series) -> PyResult<PyObject> {
     })
 }
 
-pub fn display_html_with_iframe(html_content: &str, file_path: &str, width: usize, height: usize) -> Result<(), Box<dyn Error>> {
-    std::fs::write(file_path, html_content)?;
+pub fn display_html_with_iframe(plot: Option<Plot>, chart_type: &str) -> Result<(), Box<dyn Error>> {
+    let file_path = format!("{}.html", chart_type);
+
+    if plot != None {
+        let mut plot = plot.clone().unwrap();
+        let layout = plot.layout().clone().width(1000).height(800);
+        plot.set_layout(layout);
+        let html = plot.to_html();
+        std::fs::write(&file_path, html)?;
+    }
 
     Python::with_gil(|py| {
         let jupyter = py.import("IPython.display")?;
 
-        // Instantiate the IFrame class with the required parameters
-        let iframe = jupyter.call_method1("IFrame", (file_path, width, height))?;
+        let iframe = jupyter.call_method1("IFrame", (file_path, 1000, 800))?;
 
-        // Display the IFrame
         jupyter.call_method1("display", (iframe,))?;
+        Ok(())
+    })
+}
+
+pub fn display_html(plot: Option<Plot>, chart_type: &str) -> Result<(), Box<dyn Error>> {
+    let file_path = format!("{}.html", chart_type);
+
+    if plot != None {
+        let mut plot = plot.clone().unwrap();
+        let layout = plot.layout().clone().width(1000).height(800);
+        plot.set_layout(layout);
+        let html = plot.to_html();
+        std::fs::write(&file_path, html)?;
+    }
+
+    Python::with_gil(|py| {
+        let jupyter = py.import("IPython.display")?;
+
+        // Display the HTML
+        jupyter.call_method1("display_html", (file_path, true))?;
         Ok(())
     })
 }

@@ -3,7 +3,7 @@ use finalytics::data::defi::get_protocols;
 use pyo3::prelude::*;
 use pyo3::types::{PyDict, PyList};
 use tokio::task;
-use crate::ffi::rust_df_to_py_df;
+use crate::ffi::{display_html, display_html_with_iframe, rust_df_to_py_df};
 
 #[pyclass]
 #[pyo3(name = "DefiPools")]
@@ -114,10 +114,10 @@ impl PyDefiPools {
             match display_format.as_str() {
                 "html" => {
                     let _ = pools.display_top_protocols_by_tvl(&pool_symbol, num_protocols, &display_format, "top_tvl.html").unwrap();
-                }
+                },
                 "svg" => {
                     let _ = pools.display_top_protocols_by_tvl(&pool_symbol, num_protocols, &display_format, "top_tvl.svg").unwrap();
-                }
+                },
                 "notebook" => {
                     let file_path = "top_tvl.html";
 
@@ -127,14 +127,21 @@ impl PyDefiPools {
 
                     let _ = pools.display_top_protocols_by_tvl(&pool_symbol, num_protocols, "html", file_path).unwrap();
 
-                    // Display the HTML file in the notebook
-                    Python::with_gil(|py| {
-                        let display = py.import("IPython.display").unwrap();
-                        let _ = display.call_method1("display", (file_path,)).unwrap();
-                    });
-                }
+                    let _ = display_html_with_iframe(None, "top_tvl").unwrap();
+                },
+                "colab" => {
+                    let file_path = "top_tvl.html";
+
+                    if let Err(err) = std::fs::File::create(file_path) {
+                        eprintln!("Error creating file: {:?}", err);
+                    }
+
+                    let _ = pools.display_top_protocols_by_tvl(&pool_symbol, num_protocols, "html", file_path).unwrap();
+
+                    let _ = display_html(None, "top_tvl").unwrap();
+                },
                 _ => {
-                    println!("Invalid display format. Please use 'html', 'svg' or 'notebook'.")
+                    println!("Invalid display format. Please use 'html', 'svg', 'notebook', 'colab'.")
                 }
             }
         })
@@ -163,10 +170,10 @@ impl PyDefiPools {
             match display_format.as_str() {
                 "html" => {
                     let _ = pools.display_top_protocols_by_apy(&pool_symbol, num_protocols, &display_format, "top_apy.html").unwrap();
-                }
+                },
                 "svg" => {
                     let _ = pools.display_top_protocols_by_apy(&pool_symbol, num_protocols, &display_format, "top_apy.svg").unwrap();
-                }
+                },
                 "notebook" => {
                     let file_path = "top_apy.html";
 
@@ -176,14 +183,21 @@ impl PyDefiPools {
 
                     let _ = pools.display_top_protocols_by_apy(&pool_symbol, num_protocols, "html", file_path).unwrap();
 
-                    // Display the HTML file in the notebook
-                    Python::with_gil(|py| {
-                        let display = py.import("IPython.display").unwrap();
-                        let _ = display.call_method1("display", (file_path,)).unwrap();
-                    });
-                }
+                    let _ = display_html_with_iframe(None, "top_apy").unwrap();
+                },
+                "colab" => {
+                    let file_path = "top_apy.html";
+
+                    if let Err(err) = std::fs::File::create(file_path) {
+                        eprintln!("Error creating file: {:?}", err);
+                    }
+
+                    let _ = pools.display_top_protocols_by_apy(&pool_symbol, num_protocols, "html", file_path).unwrap();
+
+                    let _ = display_html(None, "top_apy").unwrap();
+                },
                 _ => {
-                    println!("Invalid display format. Please use 'html', 'svg' or 'notebook'.")
+                    println!("Invalid display format. Please use 'html', 'svg', 'notebook' or 'colab'.")
                 }
             }
         })
@@ -196,7 +210,7 @@ impl PyDefiPools {
     /// * `pool_symbol` - `str` - liquidity pool symbol e.g. "USDC-USDT"
     /// * `protocol` - `str` - protocol e.g. "uniswap-v3"
     /// * `chain` - `str` - blockchain e.g. "ethereum"
-    /// * `display_format` - `str` - display format for the chart (html, svg, notebook)
+    /// * `display_format` - `str` - display format for the chart (html, svg, notebook, colab)
     ///
     /// # Example
     ///
@@ -216,12 +230,12 @@ impl PyDefiPools {
                     let _ = tokio::runtime::Runtime::new().unwrap().block_on(
                         pools.display_pool_tvl_history(&pool_symbol, &protocol, &chain, &display_format, "pool_tvl_history.html")
                     ).unwrap();
-                }
+                },
                 "svg" => {
                     let _ = tokio::runtime::Runtime::new().unwrap().block_on(
                         pools.display_pool_tvl_history(&pool_symbol, &protocol, &chain, &display_format, "pool_tvl_history.svg")
                     ).unwrap();
-                }
+                },
                 "notebook" => {
                     let file_path = "pool_tvl_history.html";
 
@@ -233,14 +247,23 @@ impl PyDefiPools {
                         pools.display_pool_tvl_history(&pool_symbol, &protocol, &chain, "html", file_path)
                     ).unwrap();
 
-                    // Display the HTML file in the notebook
-                    Python::with_gil(|py| {
-                        let display = py.import("IPython.display").unwrap();
-                        let _ = display.call_method1("display", (file_path,)).unwrap();
-                    });
+                    let _ = display_html_with_iframe(None, "pool_tvl_history").unwrap();
+                },
+                "colab" => {
+                    let file_path = "pool_tvl_history.html";
+
+                    if let Err(err) = std::fs::File::create(file_path) {
+                        eprintln!("Error creating file: {:?}", err);
+                    }
+
+                    let _ = tokio::runtime::Runtime::new().unwrap().block_on(
+                        pools.display_pool_tvl_history(&pool_symbol, &protocol, &chain, "html", file_path)
+                    ).unwrap();
+
+                    let _ = display_html(None, "pool_tvl_history").unwrap();
                 },
                 _ => {
-                    println!("Invalid display format. Please use 'html', 'svg' or 'notebook'.")
+                    println!("Invalid display format. Please use 'html', 'svg', 'notebook' or 'colab'.")
                 }
             }
         })
@@ -272,12 +295,12 @@ impl PyDefiPools {
                     let _ = tokio::runtime::Runtime::new().unwrap().block_on(
                         pools.display_pool_apy_history(&pool_symbol, &protocol, &chain, &display_format, "pool_apy_history.html")
                     ).unwrap();
-                }
+                },
                 "svg" => {
                     let _ = tokio::runtime::Runtime::new().unwrap().block_on(
                         pools.display_pool_apy_history(&pool_symbol, &protocol, &chain, &display_format, "pool_apy_history.svg")
                     ).unwrap();
-                }
+                },
                 "notebook" => {
                     let file_path = "pool_apy_history.html";
 
@@ -289,14 +312,23 @@ impl PyDefiPools {
                         pools.display_pool_apy_history(&pool_symbol, &protocol, &chain, "html", file_path)
                     ).unwrap();
 
-                    // Display the HTML file in the notebook
-                    Python::with_gil(|py| {
-                        let display = py.import("IPython.display").unwrap();
-                        let _ = display.call_method1("display", (file_path,)).unwrap();
-                    });
+                    let _ = display_html_with_iframe(None, "pool_apy_history").unwrap();
+                },
+                "colab" => {
+                    let file_path = "pool_apy_history.html";
+
+                    if let Err(err) = std::fs::File::create(file_path) {
+                        eprintln!("Error creating file: {:?}", err);
+                    }
+
+                    let _ = tokio::runtime::Runtime::new().unwrap().block_on(
+                        pools.display_pool_apy_history(&pool_symbol, &protocol, &chain, "html", file_path)
+                    ).unwrap();
+
+                    let _ = display_html(None, "pool_apy_history").unwrap();
                 },
                 _ => {
-                    println!("Invalid display format. Please use 'html', 'svg' or 'notebook'.")
+                    println!("Invalid display format. Please use 'html', 'svg', 'notebook' or 'colab'.")
                 }
             }
         })
@@ -335,7 +367,7 @@ impl PyDefiBalances {
     /// * `protocols` - `list` - list of protocols to fetch balances for (include "wallet" for wallet balances)
     /// * `chains` - `list` - list of chains to fetch balances for
     /// * `address` - `str` - wallet address to fetch balances for
-    /// * `display_format` - `str` - display format for the chart (html, svg, notebook)
+    /// * `display_format` - `str` - display format for the chart (html, svg, notebook, colab)
     ///
     /// # Returns
     ///
@@ -361,11 +393,11 @@ impl PyDefiBalances {
                     let _ = balances.display_wallet_balance(&display_format, "wallet_balances.html").unwrap();
                     let _ = balances.display_protocols_balance(&display_format, "protocols_balances.html").unwrap();
 
-                }
+                },
                 "svg" => {
                     let _ = balances.display_wallet_balance(&display_format, "wallet_balances.svg").unwrap();
                     let _ = balances.display_protocols_balance(&display_format, "protocols_balances.svg").unwrap();
-                }
+                },
                 "notebook" => {
                     let wallet_file_path = "wallet_balances.html";
                     let protocols_file_path = "protocols_balances.html";
@@ -381,13 +413,27 @@ impl PyDefiBalances {
                     let _ = balances.display_wallet_balance("html", wallet_file_path).unwrap();
                     let _ = balances.display_protocols_balance("html", protocols_file_path).unwrap();
 
-                    // Display the HTML file in the notebook
-                    Python::with_gil(|py| {
-                        let display = py.import("IPython.display").unwrap();
-                        let _ = display.call_method1("display", (wallet_file_path,)).unwrap();
-                        let _ = display.call_method1("display", (protocols_file_path,)).unwrap();
-                    });
-                }
+                    let _ = display_html_with_iframe(None, "wallet_balances").unwrap();
+                    let _ = display_html_with_iframe(None, "protocols_balances").unwrap();
+                },
+                "colab" => {
+                    let wallet_file_path = "wallet_balances.html";
+                    let protocols_file_path = "protocols_balances.html";
+
+                    if let Err(err) = std::fs::File::create(wallet_file_path) {
+                        eprintln!("Error creating file: {:?}", err);
+                    }
+
+                    if let Err(err) = std::fs::File::create(protocols_file_path) {
+                        eprintln!("Error creating file: {:?}", err);
+                    }
+
+                    let _ = balances.display_wallet_balance("html", wallet_file_path).unwrap();
+                    let _ = balances.display_protocols_balance("html", protocols_file_path).unwrap();
+
+                    let _ = display_html(None, "wallet_balances").unwrap();
+                    let _ = display_html(None, "protocols_balances").unwrap();
+                },
                 _ => {
                     println!("Invalid display format. Please use 'html', 'svg' or 'notebook'.")
                 }

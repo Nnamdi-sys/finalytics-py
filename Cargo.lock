@@ -938,7 +938,7 @@ dependencies = [
 
 [[package]]
 name = "finalytics"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "finalytics 0.3.4",
  "plotly-fork",

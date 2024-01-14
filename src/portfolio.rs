@@ -5,7 +5,7 @@ use finalytics::utils::chart_utils::PlotImage;
 use pyo3::prelude::*;
 use pyo3::types::PyDict;
 use tokio::task;
-use crate::ffi::{display_html_with_iframe, rust_df_to_py_df, rust_series_to_py_series};
+use crate::ffi::{display_html, display_html_with_iframe, rust_df_to_py_df, rust_series_to_py_series};
 
 
 #[pyclass]
@@ -152,16 +152,16 @@ impl PyPortfolio {
                     println!("chart written to {}.png", chart_type);
                 },
                 "notebook" => {
-                    let mut _chart = chart.clone();
-                    let layout = _chart.layout().clone().width(1000).height(800);
-                    _chart.set_layout(layout);
-                    let html = _chart.to_html();
-                    let file_path = &format!("{}_chart.html", chart_type);
-                    if let Err(err) = display_html_with_iframe(&html, file_path, 1000, 800) {
+                    if let Err(err) = display_html_with_iframe(Some(chart), &chart_type) {
                         eprintln!("Error displaying HTML with iframe: {:?}", err);
                     }
                 },
-                _ => panic!("display_format must be one of: html or png")
+                "colab" => {
+                    if let Err(err) = display_html(Some(chart), &chart_type) {
+                        eprintln!("Error displaying HTML: {:?}", err);
+                    }
+                },
+                _ => panic!("display_format must be one of: html, png, notebook or colab")
             }
         })
     }

@@ -45,10 +45,10 @@ This module contains the `Ticker` class.
       Create a new Ticker object.
 
       - **Arguments:**
-        - `symbol` (`str`): The ticker symbol of the asset.
+            - `symbol` (`str`): The ticker symbol of the asset.
 
       - **Returns:**
-        - `Ticker`: A Ticker object.
+            - `Ticker`: A Ticker object.
 
       - **Example:**
 
@@ -65,7 +65,7 @@ This module contains the `Ticker` class.
       Get the current price of the ticker.
 
       - **Returns:**
-        - `float`: The current price of the ticker.
+            - `float`: The current price of the ticker.
 
       - **Example:**
 
@@ -82,7 +82,7 @@ This module contains the `Ticker` class.
       Get summary technical and fundamental statistics for the ticker.
 
       - **Returns:**
-        - `dict`: A dictionary containing the summary statistics.
+            - `dict`: A dictionary containing the summary statistics.
 
       - **Example:**
 
@@ -99,12 +99,12 @@ This module contains the `Ticker` class.
       Get the ohlcv data for the ticker for a given time period.
 
       - **Arguments:**
-        - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
+            - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
+            - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
+            - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
 
       - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the ohlcv data.
+            - `DataFrame`: A Polars DataFrame containing the ohlcv data.
 
       - **Example:**
 
@@ -121,7 +121,7 @@ This module contains the `Ticker` class.
       Get the options chain for the ticker.
 
       - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the options chain.
+            - `DataFrame`: A Polars DataFrame containing the options chain.
 
       - **Example:**
 
@@ -138,12 +138,12 @@ This module contains the `Ticker` class.
       Get the news for the ticker for a given time period.
 
       - **Arguments:**
-        - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `compute_sentiment` (`bool`): Whether to compute the sentiment of the news articles.
+            - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
+            - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
+            - `compute_sentiment` (`bool`): Whether to compute the sentiment of the news articles.
 
       - **Returns:**
-        - `dict`: A dictionary containing the news articles (and sentiment results if requested).
+            - `dict`: A dictionary containing the news articles (and sentiment results if requested).
 
       - **Example:**
 
@@ -160,7 +160,7 @@ This module contains the `Ticker` class.
       Get the Income Statement for the ticker.
 
       - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the Income Statement.
+            - `DataFrame`: A Polars DataFrame containing the Income Statement.
 
       - **Example:**
 
@@ -177,7 +177,7 @@ This module contains the `Ticker` class.
       Get the Balance Sheet for the ticker.
 
       - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the Balance Sheet.
+            - `DataFrame`: A Polars DataFrame containing the Balance Sheet.
 
       - **Example:**
 
@@ -194,7 +194,7 @@ This module contains the `Ticker` class.
       Get the Cashflow Statement for the ticker.
 
       - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the Cashflow Statement.
+            - `DataFrame`: A Polars DataFrame containing the Cashflow Statement.
 
       - **Example:**
 
@@ -211,7 +211,7 @@ This module contains the `Ticker` class.
       Get the Financial Ratios for the ticker.
 
       - **Returns:**
-        - `DataFrame`: A Polars DataFrame containing the Financial Ratios.
+            - `DataFrame`: A Polars DataFrame containing the Financial Ratios.
 
       - **Example:**
 
@@ -228,15 +228,15 @@ This module contains the `Ticker` class.
       Compute the performance statistics for the ticker.
 
       - **Arguments:**
-        - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
-        - `benchmark` (`str`): The ticker symbol of the benchmark to compare against.
-        - `confidence_level` (`float`): The confidence level for the VaR and ES calculations.
-        - `risk_free_rate` (`float`): The risk free rate to use in the calculations.
+            - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
+            - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
+            - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
+            - `benchmark` (`str`): The ticker symbol of the benchmark to compare against.
+            - `confidence_level` (`float`): The confidence level for the VaR and ES calculations.
+            - `risk_free_rate` (`float`): The risk free rate to use in the calculations.
 
       - **Returns:**
-        - `dict`: A dictionary containing the performance statistics.
+            - `dict`: A dictionary containing the performance statistics.
 
       - **Example:**
 
@@ -253,13 +253,13 @@ This module contains the `Ticker` class.
       Display the performance chart for the ticker.
 
       - **Arguments:**
-        - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
-        - `benchmark` (`str`): The ticker symbol of the benchmark to compare against.
-        - `confidence_level` (`float`): The confidence level for the VaR and ES calculations.
-        - `risk_free_rate` (`float`): The risk free rate to use in the calculations.
-        - `display_format` (`str`): The format to display the chart in (png, html, notebook).
+            - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
+            - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
+            - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
+            - `benchmark` (`str`): The ticker symbol of the benchmark to compare against.
+            - `confidence_level` (`float`): The confidence level for the VaR and ES calculations.
+            - `risk_free_rate` (`float`): The risk free rate to use in the calculations.
+            - `display_format` (`str`): The format to display the chart in (png, html, notebook, colab).
 
       - **Example:**
 
@@ -276,10 +276,10 @@ This module contains the `Ticker` class.
       Display the candlestick chart for the ticker.
 
       - **Arguments:**
-        - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
-        - `display_format` (`str`): The format to display the chart in (png, html, notebook).
+            - `start` (`str`): The start date of the time period in the format YYYY-MM-DD.
+            - `end` (`str`): The end date of the time period in the format YYYY-MM-DD.
+            - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
+            - `display_format` (`str`): The format to display the chart in (png, html, notebook, colab).
 
       - **Example:**
 
@@ -296,8 +296,8 @@ This module contains the `Ticker` class.
       Display the options volatility surface, smile, and term structure charts for the ticker.
 
       - **Arguments:**
-        - `risk_free_rate` (`float`): The risk free rate to use in the calculations.
-        - `display_format` (`str`): The format to display the chart in (png, html, notebook).
+            - `risk_free_rate` (`float`): The risk free rate to use in the calculations.
+            - `display_format` (`str`): The format to display the chart in (png, html, notebook, colab).
 
       - **Example:**
 
@@ -325,18 +325,18 @@ This module contains the `Portfolio` class.
       Create a new Portfolio object.
 
       - **Arguments:**
-        - `ticker_symbols` (`List[str]`): List of ticker symbols for the assets in the portfolio.
-        - `benchmark_symbol` (`str`): The ticker symbol of the benchmark to compare against.
-        - `start_date` (`str`): The start date of the time period in the format YYYY-MM-DD.
-        - `end_date` (`str`): The end date of the time period in the format YYYY-MM-DD.
-        - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
-        - `confidence_level` (`float`): The confidence level for the VaR and ES calculations.
-        - `risk_free_rate` (`float`): The risk-free rate to use in the calculations.
-        - `max_iterations` (`int`): The maximum number of iterations to use in the optimization.
-        - `objective_function` (`str`): The objective function to use in the optimization (max_sharpe, min_vol, max_return, nin_var, min_cvar, min_drawdown).
+            - `ticker_symbols` (`List[str]`): List of ticker symbols for the assets in the portfolio.
+            - `benchmark_symbol` (`str`): The ticker symbol of the benchmark to compare against.
+            - `start_date` (`str`): The start date of the time period in the format YYYY-MM-DD.
+            - `end_date` (`str`): The end date of the time period in the format YYYY-MM-DD.
+            - `interval` (`str`): The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo).
+            - `confidence_level` (`float`): The confidence level for the VaR and ES calculations.
+            - `risk_free_rate` (`float`): The risk-free rate to use in the calculations.
+            - `max_iterations` (`int`): The maximum number of iterations to use in the optimization.
+            - `objective_function` (`str`): The objective function to use in the optimization (max_sharpe, min_vol, max_return, nin_var, min_cvar, min_drawdown).
 
       - **Returns:**
-        - `Portfolio`: A Portfolio object.
+            - `Portfolio`: A Portfolio object.
 
       - **Example:**
 
@@ -352,7 +352,7 @@ This module contains the `Portfolio` class.
       Get the portfolio optimization results.
 
       - **Returns:**
-        - `dict`: A dictionary containing optimization results.
+            - `dict`: A dictionary containing optimization results.
 
       - **Example:**
 
@@ -369,7 +369,7 @@ This module contains the `Portfolio` class.
       Display the portfolio optimization charts.
 
       - **Arguments:**
-        - `display_format` (`str`): The format to display the charts in (html, png, notebook).
+            - `display_format` (`str`): The format to display the charts in (html, png, notebook, colab).
 
       - **Example:**
 
@@ -396,7 +396,7 @@ This module contains the `DefiPools` and `DefiBalances` classes.
       Create a new `DefiPools` object.
 
       - **Returns:**
-        - `DefiPools`: A DefiPools object.
+            - `DefiPools`: A DefiPools object.
 
       - **Example:**
 
@@ -414,10 +414,10 @@ This module contains the `DefiPools` and `DefiBalances` classes.
       Search the pools data for pools that match the search term.
 
       - **Arguments:**
-        - `symbol` (`str`): Cryptocurrency symbol.
+            - `symbol` (`str`): Cryptocurrency symbol.
 
       - **Returns:**
-        - `List[str]`: List of pools that match the search term.
+            - `List[str]`: List of pools that match the search term.
 
       - **Example:**
 
@@ -434,9 +434,9 @@ This module contains the `DefiPools` and `DefiBalances` classes.
       Display the top protocols for a given symbol by total value locked.
 
       - **Arguments:**
-        - `pool_symbol` (`str`): Liquidity pool symbol.
-        - `num_protocols` (`int`): Number of protocols to display.
-        - `display_format` (`str`): Display format for the chart (html, svg, notebook).
+            - `pool_symbol` (`str`): Liquidity pool symbol.
+            - `num_protocols` (`int`): Number of protocols to display.
+            - `display_format` (`str`): Display format for the chart (html, svg, notebook, colab).
 
       - **Example:**
 
@@ -453,9 +453,9 @@ This module contains the `DefiPools` and `DefiBalances` classes.
       Display the top protocols for a given symbol by APY.
 
       - **Arguments:**
-        - `pool_symbol` (`str`): Liquidity pool symbol.
-        - `num_protocols` (`int`): Number of protocols to display.
-        - `display_format` (`str`): Display format for the chart (html, svg, notebook).
+            - `pool_symbol` (`str`): Liquidity pool symbol.
+            - `num_protocols` (`int`): Number of protocols to display.
+            - `display_format` (`str`): Display format for the chart (html, svg, notebook, colab).
 
       - **Example:**
 
@@ -472,10 +472,10 @@ This module contains the `DefiPools` and `DefiBalances` classes.
       Display the total value locked history for a given pool.
 
       - **Arguments:**
-        - `pool_symbol` (`str`): Liquidity pool symbol.
-        - `protocol` (`str`): Protocol.
-        - `chain` (`str`): Blockchain.
-        - `display_format` (`str`): Display format for the chart (html, svg, notebook).
+            - `pool_symbol` (`str`): Liquidity pool symbol.
+            - `protocol` (`str`): Protocol.
+            - `chain` (`str`): Blockchain.
+            - `display_format` (`str`): Display format for the chart (html, svg, notebook, colab).
 
       - **Example:**
 
@@ -492,10 +492,10 @@ This module contains the `DefiPools` and `DefiBalances` classes.
       Display the APY history for a given pool.
 
       - **Arguments:**
-        - `pool_symbol` (`str`): Liquidity pool symbol.
-        - `protocol` (`str`): Protocol.
-        - `chain` (`str`): Blockchain.
-        - `display_format` (`str`): Display format for the chart (html, svg, notebook).
+            - `pool_symbol` (`str`): Liquidity pool symbol.
+            - `protocol` (`str`): Protocol.
+            - `chain` (`str`): Blockchain.
+            - `display_format` (`str`): Display format for the chart (html, svg, notebook, colab).
 
       - **Example:**
 
@@ -517,13 +517,13 @@ This module contains the `DefiPools` and `DefiBalances` classes.
       Initializes a new `DefiBalances` object.
 
       - **Arguments:**
-        - `protocols` (`List[str]`): List of protocols to fetch balances for.
-        - `chains` (`List[str]`): List of chains to fetch balances for.
-        - `address` (`str`): Wallet address to fetch balances for.
-        - `display_format` (`str`): Display format for the chart (html, svg, notebook).
+            - `protocols` (`List[str]`): List of protocols to fetch balances for.
+            - `chains` (`List[str]`): List of chains to fetch balances for.
+            - `address` (`str`): Wallet address to fetch balances for.
+            - `display_format` (`str`): Display format for the chart (html, svg, notebook, colab).
 
       - **Returns:**
-        - `DefiBalances`: A DefiBalances object.
+            - `DefiBalances`: A DefiBalances object.
 
       - **Example:**
 
@@ -544,7 +544,7 @@ This module contains the `DefiPools` and `DefiBalances` classes.
   Fetches the supported protocols and chains for the `DefiBalances` class.
 
   - **Returns:**
-    - `Dict[str, List[str]]`: Dictionary of protocols and chains.
+        - `Dict[str, List[str]]`: Dictionary of protocols and chains.
 
   - **Example:**
 

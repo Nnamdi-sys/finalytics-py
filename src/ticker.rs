@@ -4,7 +4,7 @@ use finalytics::data::ticker::{Interval, Ticker};
 use finalytics::{Financials, TickerCharts, TickerPerformanceStats};
 use pyo3::types::PyDict;
 use finalytics::utils::chart_utils::PlotImage;
-use crate::ffi::{rust_df_to_py_df, rust_series_to_py_series, display_html_with_iframe};
+use crate::ffi::{rust_df_to_py_df, rust_series_to_py_series, display_html_with_iframe, display_html};
 
 #[pyclass]
 #[pyo3(name = "Ticker")]
@@ -426,7 +426,7 @@ impl PyTicker {
     /// * `benchmark` - `str` - The ticker symbol of the benchmark to compare against
     /// * `confidence_level` - `float` - The confidence level for the VaR and ES calculations
     /// * `risk_free_rate` - `float` - The risk free rate to use in the calculations
-    /// * `display_format` - `str` - The format to display the chart in (png, html, notebook)
+    /// * `display_format` - `str` - The format to display the chart in (png, html, notebook, colab)
     ///
     /// # Example
     ///
@@ -443,7 +443,7 @@ impl PyTicker {
             let chart = TickerCharts::new(&self.symbol,  &start,
                                           &end, interval, &benchmark, confidence_level, risk_free_rate).unwrap();
 
-            let mut performance_chart = tokio::runtime::Runtime::new().unwrap().block_on(
+            let performance_chart = tokio::runtime::Runtime::new().unwrap().block_on(
                 chart.performance_chart()).unwrap();
 
             match display_format.as_str() {
@@ -456,16 +456,17 @@ impl PyTicker {
                     println!("Chart Saved to performance_chart.html");
                 },
                 "notebook" => {
-                    let layout = performance_chart.layout().clone().width(1000).height(800);
-                    performance_chart.set_layout(layout);
-                    let html = performance_chart.to_html();
-                    let file_path = "ticker_performance_chart.html";
-                    if let Err(err) = display_html_with_iframe(&html, file_path, 1000, 800) {
+                    if let Err(err) = display_html_with_iframe(Some(performance_chart), "performance_chart") {
                         eprintln!("Error displaying HTML with iframe: {:?}", err);
                     }
                 },
+                "colab" => {
+                    if let Err(err) = display_html(Some(performance_chart), "performance_chart") {
+                        eprintln!("Error displaying HTML: {:?}", err);
+                    }
+                },
                 _ => {
-                    println!("Invalid output format. Please choose either 'png', 'html' or notebook");
+                    println!("Invalid output format. Please choose either 'png', 'html', notebook or colab");
                 }
             }
         })
@@ -478,7 +479,7 @@ impl PyTicker {
     /// * `start` - `str` - The start date of the time period in the format YYYY-MM-DD
     /// * `end` - `str` - The end date of the time period in the format YYYY-MM-DD
     /// * `interval` - `str` - The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo)
-    /// * `display_format` - `str` - The format to display the chart in (png, html, notebook)
+    /// * `display_format` - `str` - The format to display the chart in (png, html, notebook, colab)
     ///
     /// # Example
     ///
@@ -494,7 +495,7 @@ impl PyTicker {
             let chart = TickerCharts::new(&self.symbol,  &start,
                                           &end, interval, "", 0.0, 0.0).unwrap();
 
-            let mut candlestick_chart = tokio::runtime::Runtime::new().unwrap().block_on(
+            let candlestick_chart = tokio::runtime::Runtime::new().unwrap().block_on(
                 chart.candlestick_chart()).unwrap();
 
             match display_format.as_str() {
@@ -507,16 +508,17 @@ impl PyTicker {
                     println!("Chart Saved to candlestick_chart.html");
                 },
                 "notebook" => {
-                    let layout = candlestick_chart.layout().clone().width(1000).height(800);
-                    candlestick_chart.set_layout(layout);
-                    let html = candlestick_chart.to_html();
-                    let file_path = "candlestick_chart.html";
-                    if let Err(err) = display_html_with_iframe(&html, file_path, 1000, 800) {
+                    if let Err(err) = display_html_with_iframe(Some(candlestick_chart), "candlestick_chart") {
                         eprintln!("Error displaying HTML with iframe: {:?}", err);
                     }
                 },
+                "colab" => {
+                    if let Err(err) = display_html(Some(candlestick_chart), "candlestick_chart") {
+                        eprintln!("Error displaying HTML: {:?}", err);
+                    }
+                },
                 _ => {
-                    println!("Invalid output format. Please choose either 'png', 'html' or notebook");
+                    println!("Invalid output format. Please choose either 'png', 'html', 'notebook' or 'colab'");
                 }
             }
         })
@@ -528,7 +530,7 @@ impl PyTicker {
     ///
     /// * `risk_free_rate` - `float` - The risk free rate to use in the calculations
     /// * `chart_type` - `str` - The type of options volatility chart to display (surface, smile, term_structure)
-    /// * `display_format` - `str` - The format to display the chart in (png, html, notebook)
+    /// * `display_format` - `str` - The format to display the chart in (png, html, notebook, colab)
     ///
     /// # Example
     ///
@@ -564,17 +566,17 @@ impl PyTicker {
                     println!("{}.html", chart_type);
                 },
                 "notebook" => {
-                    let mut _plot = plot.clone();
-                    let layout = _plot.layout().clone().width(1000).height(800);
-                    _plot.set_layout(layout);
-                    let html = _plot.to_html();
-                    let file_path = format!("{}.html", chart_type);
-                    if let Err(err) = display_html_with_iframe(&html, &file_path, 1000, 800) {
+                    if let Err(err) = display_html_with_iframe(Some(plot), &chart_type) {
                         eprintln!("Error displaying HTML with iframe: {:?}", err);
                     }
                 },
+                "colab" => {
+                    if let Err(err) = display_html(Some(plot), &chart_type) {
+                        eprintln!("Error displaying HTML: {:?}", err);
+                    }
+                },
                 _ => {
-                    println!("Invalid output format. Please choose either 'png', 'html' or 'notebook'");
+                    println!("Invalid output format. Please choose either 'png', 'html', 'notebook' or 'colab'");
                 }
             }
 
