@@ -369,6 +369,7 @@ This module contains the `Portfolio` class.
       Display the portfolio optimization charts.
 
       - **Arguments:**
+            - `chart_type` (`str`): The type of chart to display (optimization, performance, asset_returns).
             - `display_format` (`str`): The format to display the charts in (html, png, notebook, colab).
 
       - **Example:**
@@ -378,7 +379,7 @@ This module contains the `Portfolio` class.
             import finalytics
 
             portfolio = finalytics.Portfolio(["AAPL", "GOOG", "MSFT"], "^GSPC", "2020-01-01", "2021-01-01", "1d", 0.95, 0.02, 1000, "max_sharpe")
-            portfolio.display_portfolio_charts("html")
+            portfolio.display_portfolio_charts("optimization","html")
 
 
 

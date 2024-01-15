@@ -4,6 +4,8 @@
 ![License](https://img.shields.io/crates/l/finalytics)
 [![Homepage](https://img.shields.io/badge/homepage-finalytics.rs-blue)](https://finalytics.rs/)
 [![Documentation Status](https://readthedocs.org/projects/finalytics-py/badge/?version=latest)](https://finalytics-py.readthedocs.io/en/latest/?badge=latest)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20MacOS-brightgreen)
+![Python Version](https://img.shields.io/badge/Python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue)
 ![PePy](https://static.pepy.tech/personalized-badge/finalytics?period=total&units=international_system&left_color=black&right_color=blue&left_text=Downloads)
 [![CodeFactor](https://www.codefactor.io/repository/github/nnamdi-sys/finalytics-py/badge)](https://www.codefactor.io/repository/github/nnamdi-sys/finalytics-py)
 
@@ -65,11 +67,11 @@ ticker.display_options_chart(risk_free_rate=0.02, chart_type="surface", display_
 from finalytics import Portfolio
 
 portfolio = Portfolio(ticker_symbols=["AAPL", "GOOG", "MSFT", "BTC-USD"], 
-                      benchmark="^GSPC", start="2020-01-01", end="2022-01-01", interval="1d", 
+                      benchmark_symbol="^GSPC", start_date="2020-01-01", end_date="2022-01-01", interval="1d", 
                       confidence_level=0.95, risk_free_rate=0.02, max_iterations=1000, 
                       objective_function="max_sharpe")
 print(portfolio.get_optimization_results())
-portfolio.display_portfolio_charts("html")
+portfolio.display_portfolio_charts("performance", "html")
 ```
 
 ### DeFi Liquidity Pools

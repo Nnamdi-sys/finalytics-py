@@ -22,9 +22,9 @@ impl PyPortfolio {
     /// # Arguments
     ///
     /// * `ticker_symbols` - `list` - list of ticker symbols
-    /// * `benchmark` - `str` - The ticker symbol of the benchmark to compare against
-    /// * `start` - `str` - The start date of the time period in the format YYYY-MM-DD
-    /// * `end` - `str` - The end date of the time period in the format YYYY-MM-DD
+    /// * `benchmark_symbol` - `str` - The ticker symbol of the benchmark to compare against
+    /// * `start_date` - `str` - The start date of the time period in the format YYYY-MM-DD
+    /// * `end_date` - `str` - The end date of the time period in the format YYYY-MM-DD
     /// * `interval` - `str` - The interval of the data (2m, 5m, 15m, 30m, 1h, 1d, 1wk, 1mo, 3mo)
     /// * `confidence_level` - `float` - The confidence level for the VaR and ES calculations
     /// * `risk_free_rate` - `float` - The risk free rate to use in the calculations

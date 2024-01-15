@@ -449,11 +449,11 @@ impl PyTicker {
             match display_format.as_str() {
                 "png" => {
                     performance_chart.to_png("ticker_performance_chart.png",  1500, 1200, 1.0);
-                    println!("Chart Saved to performance_chart.png");
+                    println!("Chart Saved to ticker_performance_chart.png");
                 },
                 "html" => {
                     performance_chart.write_html("ticker_performance_chart.html");
-                    println!("Chart Saved to performance_chart.html");
+                    println!("Chart Saved to ticker_performance_chart.html");
                 },
                 "notebook" => {
                     if let Err(err) = display_html_with_iframe(Some(performance_chart), "performance_chart") {

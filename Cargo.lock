@@ -938,9 +938,9 @@ dependencies = [
 
 [[package]]
 name = "finalytics"
-version = "0.2.4"
+version = "0.2.5"
 dependencies = [
- "finalytics 0.3.4",
+ "finalytics 0.3.6",
  "plotly-fork",
  "polars",
  "pyo3",
@@ -949,9 +949,9 @@ dependencies = [
 
 [[package]]
 name = "finalytics"
-version = "0.3.4"
+version = "0.3.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b78fb04ac2b111386fd8612ef9e6d3c8dc2561f5b70056123bcde99dcf19d77a"
+checksum = "4919c4bb2bbd038eea74150b6dbeb44bad7ef79663e6b29417e8f4f832fe188b"
 dependencies = [
  "charming",
  "chrono",
